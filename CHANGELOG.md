@@ -11,4 +11,9 @@
 - Added quality gates for clarity, structure, geometry, evidence, and share
   polish.
 - Added `repo-architecture.html` example.
-
+- Added `tokengate-repo-architecture.html`, generated from the public
+  `Mario-Vishal/tokengate` repository using the skill-only repo visualization
+  route.
+- Added `qwen3-paper-brief.html`, generated from the open Qwen3 Technical
+  Report arXiv paper using the skill-only research-paper route.
+- Rebuilt the README as a visual example gallery with screenshot previews.
