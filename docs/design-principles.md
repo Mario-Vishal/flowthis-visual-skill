@@ -20,6 +20,24 @@ and inspect evidence only when they expand or navigate deeper.
 Important claims need source anchors: files, sections, figures, comments, data
 ranges, or an explicit inference label.
 
+## Depth over surface polish
+
+Every visual should teach the source's mechanism, assumptions, evidence,
+tradeoffs, limitations, and next inspection path. A polished page with generic
+cards and shallow summaries fails the skill.
+
+Use tables when the source contains comparisons, baselines, metrics, ablations,
+risks, or design choices. Use multiple focused diagrams when one diagram would
+hide the actual method, system, or workflow.
+
+## Research paper depth
+
+Research-paper visuals should feel like technical reading companions, not
+advertisements. Include problem formulation, prior approach contrast, method
+mechanics, equations or algorithms when present, experiment and ablation
+tables, tradeoff discussion, limitations, reproducibility notes, and exact
+sections or figures to read next.
+
 ## Boundary-safe diagrams
 
 Arrows stop at node boundaries. They do not enter boxes, cross text, or hide

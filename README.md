@@ -50,6 +50,7 @@ evidence-aware, and useful on the first pass.
 | <img src="https://img.shields.io/badge/brief-first-2563EB?style=flat-square" alt="Brief first"> | Source type, audience, confidence, reader job, and what to inspect first. |
 | <img src="https://img.shields.io/badge/identity-source%20aware-16A34A?style=flat-square" alt="Source-aware identity"> | Repos, papers, products, workflows, and reports get distinct structures instead of one generic theme. |
 | <img src="https://img.shields.io/badge/repos-deep%20architecture-7C3AED?style=flat-square" alt="Deep architecture"> | Codebase visuals explain modules, contracts, runtime paths, tests, risks, and exact files to inspect. |
+| <img src="https://img.shields.io/badge/papers-technical%20depth-4F46E5?style=flat-square" alt="Technical paper depth"> | Research-paper visuals explain mechanisms, equations/algorithms, baselines, tradeoffs, ablations, limitations, and reproducibility. |
 | <img src="https://img.shields.io/badge/interaction-no%20JS-D97706?style=flat-square" alt="No JavaScript"> | Anchors, `:target`, `details`, and CSS states create navigable documents that work in strict sandboxes. |
 | <img src="https://img.shields.io/badge/diagrams-boundary%20safe-DC2626?style=flat-square" alt="Boundary-safe diagrams"> | Arrows stop at node edges, flow direction is visible, icons identify component types, and maps use the full width. |
 | <img src="https://img.shields.io/badge/evidence-labeled-0891B2?style=flat-square" alt="Evidence labeled"> | Source-backed facts and inferred summaries are visually separated. |
@@ -127,6 +128,8 @@ Every generated visual should be:
 - no remote fonts, styles, scripts, images, or iframes
 - responsive at mobile and desktop widths
 - source-specific in palette, density, structure, and tone
+- deep enough to explain mechanisms, evidence, tradeoffs, limits, and read-next
+  references
 - explicit about provenance and uncertainty
 - lightly attributed at the bottom with `Generated with FlowThis Skill` and a
   source link
@@ -136,7 +139,7 @@ Every generated visual should be:
 
 | Source | Default Visual Pattern |
 | --- | --- |
-| Research paper / PDF | Paper brief with contributions, method map, experiments, limits, read-next |
+| Research paper / PDF | Technical reading companion with problem formulation, method deep dive, equations/algorithms when present, focused diagrams, experiment/ablation tables, tradeoff matrix, limitations, reproducibility, read-next |
 | Repository / codebase | Deep architecture workspace, top summary, detailed file drill-down, large animated maps, flows, contracts, runtime, tests, risks |
 | Software architecture | System boundaries, services, stores, request paths, failure points |
 | Conversation / debug log | Timeline, decisions, blockers, current state, next actions |

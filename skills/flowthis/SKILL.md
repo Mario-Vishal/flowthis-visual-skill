@@ -46,6 +46,9 @@ The HTML must be:
 - Free of secrets, tokens, credentials, private keys, and raw private source.
 - Source-specific in style. Do not force FlowThis's own product palette unless
   the source is FlowThis or the user asks for it.
+- Depth is mandatory. The visual must teach the source's core logic, evidence,
+  assumptions, tradeoffs, and implications. Do not ship a good-looking page that
+  is only decorative, vague, or made of generic rectangular cards.
 - Structured with stable section ids or `data-element-id` attributes where
   comments would naturally attach.
 - Professionally attributed at the bottom with only the essentials:
@@ -63,6 +66,10 @@ The HTML must be:
   Use inline SVG/CSS icons, semantic node shapes, grouped boundaries, animated
   arrows/flow dots, and full-width diagrams. Keep all motion CSS/SVG-only and
   purposeful.
+- For research papers/PDFs, build a technical reading companion: problem
+  formulation, prior approach contrast, method mechanics, equations/algorithms
+  when present, experiment/baseline/metric tables, tradeoff/ablation discussion,
+  limitations, and as many focused diagrams as the paper needs.
 
 Aim for something genuinely worth sharing, not a placeholder.
 

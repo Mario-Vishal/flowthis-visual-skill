@@ -32,6 +32,25 @@ language. The agent owns source understanding and final assembly.
 - Every visual needs a visible reading path: start here, inspect the map, expand
   evidence, then decide next action.
 
+## Depth Contract
+
+Visual polish is not enough. Every artifact must increase understanding of the
+source, not merely package it.
+
+- Optimize for UI plus depth: every major section should explain what the thing
+  is, how it works, why it matters, what evidence supports it, what tradeoffs it
+  creates, and what the reader should inspect next.
+- Prefer dense-but-readable explanation over vague marketing copy. A beautiful
+  page with generic rectangles and shallow summaries fails the skill.
+- Use the number of diagrams the source needs. A complex paper, architecture, or
+  workflow can require multiple focused diagrams rather than one overloaded map.
+- Use tables whenever comparisons, tradeoffs, baselines, ablations, risks,
+  assumptions, metrics, or design choices would be clearer in rows and columns.
+- Separate summary from analysis. A summary says what the source states; an
+  analysis explains mechanisms, implications, alternatives, and limits.
+- Add depth progressively: gist first, then mechanism, evidence, tradeoffs,
+  limitations, and read-next references.
+
 ## FlowThis Signature
 
 FlowThis should feel different from a generic LLM HTML dump because it applies
@@ -104,6 +123,16 @@ Use these reusable structures before inventing a new component:
 - Risk board: risk, why it matters, mitigation, deploy/runtime owner.
 - Comparison matrix: options vs criteria, with a visible recommendation only if
   the source supports it.
+- Technical deep-dive panel: mechanism, assumptions, inputs, outputs, failure
+  modes, and "why this design exists".
+- Approach comparison table: prior/baseline approach, proposed approach,
+  advantage, cost, failure mode, and evidence.
+- Tradeoff matrix: choice, benefit, cost, operational/research risk, when it
+  wins, when it fails.
+- Ablation/results table: variant, changed component, metric movement, likely
+  interpretation, caveat.
+- Equation/algorithm explainer: symbol glossary, step-by-step interpretation,
+  intuition, and implementation/evaluation impact.
 - Explorer-detail pair: compact left navigation with selected file/folder state
   and a right-side detail pane. This can look like an IDE, docs workspace,
   directory mock, or file-preview browser depending on the source.
@@ -127,14 +156,46 @@ Use these reusable structures before inventing a new component:
 ### Research Paper / PDF
 
 - Paper identity: title, authors if known, venue/date if known, source URL/file.
-- One-screen abstract rewrite: problem, approach, result, why it matters.
-- Contribution cards: 3-5 claims tied to source sections when available.
-- Method pipeline: inputs -> preprocessing -> model/method -> evaluation -> output.
+- One-screen abstract rewrite: problem, approach, result, why it matters. Keep
+  it technical and precise; avoid ad-style copy.
+- Problem formulation: task, inputs, outputs, constraints, assumptions, and why
+  prior approaches are insufficient when the paper explains it.
+- Contribution map: 3-5 claims tied to source sections, figures, tables, or
+  equations when available.
+- Method deep dive: inputs -> preprocessing -> model/method -> training or
+  optimization -> evaluation -> output. Explain the mechanism, not only labels.
+- Algorithm/equation explainer when present: define symbols, explain the steps
+  in plain language, and connect the math to implementation or result.
+- Approach comparison table: baseline/prior method, proposed change, advantage,
+  cost, failure mode, and evidence.
+- Tradeoff matrix: accuracy/quality, compute, data needs, latency, robustness,
+  interpretability, reproducibility, and deployment fit when relevant.
+- Experiment matrix: datasets, baselines, metrics, main result, statistical or
+  qualitative caveat.
+- Ablation table when present: variant, removed/changed component, metric
+  movement, interpretation, caveat.
 - Figure digest: reproduce provided images only when available; otherwise draw
   simplified schematics and label them as summaries.
-- Experiment matrix: datasets, baselines, metrics, main result.
-- Limitations and assumptions.
+- Multiple focused diagrams when useful: problem setup, method pipeline, model
+  architecture, training/evaluation loop, data flow, loss/objective, results
+  comparison, and failure modes. Do not force everything into one diagram.
+- Limitations, assumptions, and threats to validity.
+- Reproducibility checklist: data availability, code availability, compute,
+  hyperparameters, evaluation protocol, and missing details when known.
+- Critical reading notes: what is strong, what is uncertain, what evidence would
+  change the conclusion.
 - Read next: exact sections/figures to inspect in the original.
+
+Research paper quality bar:
+
+- The visual should feel like a technical reading companion, not a product
+  advertisement.
+- A reader should understand the paper's core mechanism, evidence, tradeoffs,
+  and limitations without having to read the full paper first.
+- Prefer tables for baselines, metrics, ablations, and tradeoffs; prefer
+  diagrams for mechanism, data flow, architecture, and evaluation loops.
+- If the source does not provide a detail, label it as "not specified in source"
+  instead of guessing.
 
 ### Architecture / Repository
 
@@ -226,7 +287,9 @@ Directory explorer rules:
 
 - Context: what problem was being solved.
 - Timeline: events in chronological order.
-- Decision log: decision, reason, tradeoff, owner/status.
+- Decision log: decision, reason, tradeoff, owner/status, and evidence.
+- Root-cause or hypothesis map when the conversation is a debug session.
+- Evidence table: symptom, observation, command/log/source, implication.
 - Current state: what works, what is blocked, what is next.
 - Open questions: only unresolved questions.
 
@@ -238,6 +301,8 @@ Directory explorer rules:
 - Feature or product sections with precise copy.
 - Pricing/availability/status if provided.
 - CTA area.
+- Claim/evidence table when the source includes proof, metrics, testimonials,
+  benchmarks, or comparisons.
 
 Use polished motion sparingly: CSS-only fades, line movement, reveal bands, or
 subtle SVG strokes. Avoid stock-like filler, fake metrics, and empty hype.
@@ -250,6 +315,7 @@ subtle SVG strokes. Avoid stock-like filler, fake metrics, and empty hype.
 - Acceptance criteria and edge cases.
 - Handoffs and ownership.
 - Delivery plan or next sprint candidates.
+- Tradeoff and dependency table for scope, risk, effort, sequencing, and owner.
 
 ### Data / Metrics
 
@@ -258,6 +324,9 @@ subtle SVG strokes. Avoid stock-like filler, fake metrics, and empty hype.
 - Charts with legends and axis labels.
 - Explanation of trends and caveats.
 - Recommended action.
+- Method notes: source, date range, filters, sample size, calculation formula,
+  missing data, and confidence.
+- Segment or cohort tables when totals hide important differences.
 
 Use SVG charts or CSS layout. Do not fake precision. If data is incomplete,
 label it clearly.
@@ -322,6 +391,8 @@ Score the artifact before saving. Revise until all five gates are acceptable:
   readable spacing at desktop and mobile widths.
 - Evidence gate: source-backed statements and inferred summaries are visually
   distinguishable.
+- Depth gate: the artifact explains mechanisms, tradeoffs, limits, and evidence
+  beyond a surface summary.
 - Share gate: title, provenance, summary, visual map, detail sections, and
   read-next are present.
 

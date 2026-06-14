@@ -43,3 +43,10 @@
   routes, and repository layout.
 - Added a local SVG product mark and GitHub README badge/icon treatment so the
   public repo reads more like a production-quality project page.
+- Added a depth contract across the skill: visuals must explain mechanisms,
+  evidence, assumptions, tradeoffs, limits, and read-next paths instead of only
+  presenting attractive cards.
+- Expanded the research-paper route into a technical reading companion with
+  problem formulation, prior approach contrast, method deep dives,
+  equations/algorithms, focused diagrams, experiment/ablation tables, tradeoff
+  matrices, limitations, and reproducibility notes.
