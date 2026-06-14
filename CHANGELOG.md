@@ -29,3 +29,7 @@
 - Updated the repository visualization route to require a top summary, an
   explicit `Architecture` Explorer folder, and a large right-pane architecture
   diagram when selected.
+- Reframed repository visuals as deep architecture workspaces rather than
+  mandatory IDE mockups. Added guidance for wide architecture canvases, semantic
+  icons, animated SVG flow arrows, directory/file previews, detailed module/file
+  drill-downs, contracts, runtime maps, tests, and read-next paths.

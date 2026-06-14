@@ -6,8 +6,9 @@ fixed theme.
 ## Source-first identity
 
 The source material chooses the visual identity. A codebase visual can feel like
-an editor. A research paper can feel like an annotated brief. A product launch
-can feel editorial. Do not stamp one brand skin onto every artifact.
+an editor, docs workspace, directory mock, or wide architecture canvas. A
+research paper can feel like an annotated brief. A product launch can feel
+editorial. Do not stamp one brand skin onto every artifact.
 
 ## Progressive detail
 
@@ -24,8 +25,20 @@ ranges, or an explicit inference label.
 Arrows stop at node boundaries. They do not enter boxes, cross text, or hide
 meaningful labels. Dense systems become multiple focused diagrams.
 
+## Architecture craft
+
+Architecture visuals should not look like plain rectangles joined by static
+lines. Use meaningful inline SVG icons, semantic node shapes, grouped
+boundaries, large full-width canvases, and CSS/SVG-only animated flow arrows
+when motion clarifies request, data, auth, or background work.
+
+## Repo depth
+
+Repository visuals should let a reader go deep. Explain important folders and
+files, contracts, dependencies, runtime assumptions, tests, risks, and exact
+read-next paths. A source tree alone is not enough.
+
 ## One file
 
 Every output is one complete HTML file with inline CSS/SVG. No JavaScript, no
 external fonts, no remote images, no iframes, and no network requests.
-

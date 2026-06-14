@@ -62,7 +62,7 @@ default pattern below.
 | Source type | Default visual |
 | --- | --- |
 | Research paper, PDF, arXiv, technical report | Paper brief: problem, contributions, method pipeline, figures, experiments, limitations, takeaways |
-| Repository, GitHub tree, codebase, system design | IDE architecture workspace: Mac/VS Code-style window, clickable Explorer tree, file tabs, editor/detail pane, service/data-flow diagram, key files, runtime/deploy map |
+| Repository, GitHub tree, codebase, system design | Deep architecture workspace: source-aware summary, detailed repo/file drill-down, large animated architecture diagrams, key flows, contracts, runtime/deploy/security maps |
 | Cloud/software architecture | System map: actors, services, data stores, trust boundaries, request flows, failure points |
 | Conversation history, meeting notes, debug session | Narrative timeline: context, decisions, open questions, blockers, next actions |
 | Product/advertisement/launch copy | Polished product page: offer, audience, benefit stack, feature proofs, CTA blocks |
@@ -104,9 +104,12 @@ Use these reusable structures before inventing a new component:
 - Risk board: risk, why it matters, mitigation, deploy/runtime owner.
 - Comparison matrix: options vs criteria, with a visible recommendation only if
   the source supports it.
-- Explorer-detail pair: literal IDE-style layout with an activity bar or window
-  chrome, compact left navigation, selected file/folder state, tabs, and a
-  right-side editor/detail pane.
+- Explorer-detail pair: compact left navigation with selected file/folder state
+  and a right-side detail pane. This can look like an IDE, docs workspace,
+  directory mock, or file-preview browser depending on the source.
+- Architecture canvas: a full-width SVG/system map with meaningful icons,
+  grouped boundaries, semantic node shapes, animated flow arrows, and drill-down
+  anchors for important components.
 - Figure digest: image or schematic, caption, what it proves, caveat.
 - Read-next footer: exact files, sections, figures, prompts, or tasks to inspect.
 
@@ -136,23 +139,29 @@ Use these reusable structures before inventing a new component:
 ### Architecture / Repository
 
 - System purpose and audience.
-- Directory explorer: render the project structure as a literal Mac/VS Code-like
-  IDE window. Include window chrome, a compact activity bar when useful, a left
-  Explorer sidebar with folder/file icons, nested indentation, selected state,
-  and editor tabs. The right editor/detail pane must change according to the
-  selected folder/file using CSS-only anchors and `:target`.
-- Top summary: before the IDE window, include a concise source-aware summary of
-  what the system does, the core loop, the architecture focus, and the review
-  lens. Do not make the repo visual feel like only a source tree.
+- Top summary: include a source-aware summary of what the system does, the core
+  loop, key entrypoints, architecture focus, and review lens. Do not make the
+  repo visual feel like only a source tree.
+- Deep repo explanation: go beyond high-level modules. Explain important
+  folders/files with responsibilities, inbound/outbound dependencies, data
+  contracts, config/env surfaces, tests, runtime assumptions, and review targets.
+  When source access is limited, label what is inferred.
+- Directory explorer or directory mock: show the project structure with
+  folder/file icons, nested indentation, selected state, and per-item summaries.
+  The layout can be a Mac/VS Code-like IDE, a docs-style workspace, a file
+  preview browser, or a directory with PNG/screenshot-like preview tiles. Use the
+  pattern that makes the architecture easiest to understand.
 - Selected item detail pane: for each important folder/file, show a document-like
-  editor view with a title, path pill, short purpose, headings/subheadings,
-  source-backed facts, inferred responsibilities, and review targets. Do not
-  make it a generic card list.
+  detail view with a title, path pill, short purpose, headings/subheadings,
+  source-backed facts, inferred responsibilities, contracts, and review targets.
+  Do not make it a generic card list.
 - Architecture map: clients, API/server, background jobs, storage, external
   services, observability, and auth/security boundaries.
 - Request or data-flow diagram for the most important path.
 - Key contracts: routes, events, schemas, env vars, permissions.
 - Risk map: bottlenecks, failure modes, deployment assumptions.
+- Evidence/read-next map: exact files, classes/functions, routes, migrations,
+  tests, or docs to inspect after the visual.
 
 Architecture map recipes:
 
@@ -162,23 +171,53 @@ Architecture map recipes:
 - Runtime map: local dev, preview, production, deploy-dependent services.
 - Ownership map: which code paths own validation, storage, rendering, revision,
   and moderation.
+- Dependency map: which modules call, configure, store, or render each other.
+- Data model map: entities/tables/files, ownership, lifecycle, and mutation
+  paths.
+
+Architecture visual depth rules:
+
+- The primary architecture diagram should use most of the available width. Avoid
+  narrow, card-sized maps. Use constrained inner widths only for text-heavy
+  reading sections, not for the main system canvas.
+- If an IDE/window frame is used, expand the frame to the page width and make the
+  architecture pane or tab large enough to inspect without zooming.
+- Avoid generic plain rectangles. Use semantic visual language: browser/device
+  frames for clients, service cards with icon headers for APIs/workers, database
+  cylinders for DBs, stacked pages for documents/files, queue rails for events,
+  shield/lock badges for auth/security, gear badges for config/runtime, and
+  test/check icons for verification.
+- Use inline SVG icon symbols or CSS-drawn icons only. Keep icons consistent in
+  stroke weight and style. Icons should clarify component type, not decorate.
+- Add CSS/SVG-only flow animation where it improves comprehension: animated
+  `stroke-dashoffset` arrows, moving dots along paths, soft pulses at handoff
+  points, or direction markers. Respect `prefers-reduced-motion`.
+- Use distinct visual treatments for request flow, data persistence, auth/trust,
+  and background/async work. Do not make every connection the same color or
+  weight.
+- Break large systems into multiple full-width maps: context, request path,
+  runtime/deploy, trust/security, data model, and ownership. Link them through
+  anchors or directory/mock items.
 
 Directory explorer rules:
 
 - Put the tree on the left and the summary/detail pane on the right on desktop,
-  inside a recognizable IDE/window frame.
-- Include an explicit `Architecture` folder or Explorer item near the top of
-  the tree. Put key system maps and flow diagrams there instead of hiding them
-  as tiny tabs or lowercase side labels.
+  when using an explorer layout. The frame can be an IDE, docs browser, file
+  preview workspace, or source-aware directory mock.
+- Include an explicit `Architecture` folder or Explorer item near the top when a
+  tree is present. Put key system maps and flow diagrams there instead of hiding
+  them as tiny tabs or lowercase side labels.
 - On mobile, stack the tree above the detail pane.
 - Use CSS/HTML only: `details`, `summary`, anchor links, and `:target`.
   Selecting a file/folder in the left pane should update the right pane without
   JavaScript.
 - When the selected item is an architecture map, let the diagram fill most of
-  the right editor pane. The IDE frame is already a constraint, so avoid small
-  inset diagrams unless the map is secondary.
+  the right detail pane. The frame is already a constraint, so avoid small inset
+  diagrams unless the map is secondary.
 - Important folder rows need a one-line purpose. Important file rows need a
-  one-line "contains/does" summary.
+  one-line "contains/does" summary. For richer repo visuals, add tiny preview
+  thumbnails or PNG/screenshot-like tiles for docs, diagrams, dashboards, or
+  important rendered files when source material supports it.
 - Use simple inline SVG or CSS icons for folders, files, config, database,
   route/API, UI component, test, and documentation when they improve scanning.
 - Keep the tree compact, like VS Code's Explorer. Avoid oversized folder cards.
@@ -231,6 +270,8 @@ All diagrams must be readable before they are beautiful.
 - Use `marker-end` arrowheads and stop connector lines at node boundaries.
 - Never draw arrows through text.
 - Never let arrowheads enter the interior of a box/circle. Leave 6-12px padding.
+- For architecture diagrams, prefer visible direction: marker-end arrowheads
+  plus animated dashed strokes or moving dots when motion helps explain flow.
 - Route connectors orthogonally or with gentle curves. Avoid diagonal clutter.
 - Minimize crossings. If a crossing is unavoidable, add a tiny bridge/gap.
 - Use consistent node sizes, alignment, and spacing.
@@ -238,6 +279,8 @@ All diagrams must be readable before they are beautiful.
 - Group systems by boundary: user/client, app/API, worker/job, database/storage,
   external provider, security/trust boundary.
 - For dense systems, make multiple diagrams instead of one overloaded diagram.
+- Use icons and semantic shapes to encode component type; avoid a page that
+  looks like plain rectangles with labels.
 
 ### Boundary-aware arrow recipe
 
@@ -258,6 +301,9 @@ to the center unless the line is hidden behind a boundary-safe marker.
 - Use a dynamic palette selected from the source type, audience, and mood.
 - Use one or two purposeful accents plus neutral surfaces.
 - Icons are encouraged when they clarify scanning.
+- Architecture visuals should feel crafted: meaningful icons, semantic shapes,
+  animated flow lines, large readable maps, and source-aware color roles. Avoid
+  default-looking boxes connected by static arrows.
 - Keep cards at 8px radius or less unless the surrounding style supports more.
 - Avoid glass effects, blurred blobs, ornamental gradients, and decoration that
   does not explain content.

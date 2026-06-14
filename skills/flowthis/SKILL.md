@@ -52,13 +52,17 @@ The HTML must be:
   `Generated with FlowThis Skill` and `Source: <source>`. Link the FlowThis
   text when the site URL is known. Do not put long generation notes in the
   attribution.
-- For repository/codebase visuals, use a literal IDE-style composition when the
-  user does not specify otherwise: Mac/VS Code-like window chrome, left Explorer
-  tree, selected file/folder state, tabs, and a right editor/detail pane that
-  changes with CSS-only anchors. Include a concise top summary before the IDE.
-  Put architecture diagrams under a clearly named `Architecture` folder/item in
-  the Explorer, and make the primary architecture diagram fill most of the
-  right editor pane when selected.
+- For repository/codebase visuals, build a deep architecture experience, not a
+  shallow repo tour. Include a concise top summary, detailed module/file
+  drill-downs, key flows, contracts, runtime/deploy notes, risks, and tests.
+  The layout does not have to be an IDE. Use a literal IDE, wide architecture
+  canvas, docs workspace, directory mock with file previews, or hybrid layout
+  based on what explains the source best. If an IDE/window frame is used, expand
+  it to the available width and make architecture diagrams large enough to read.
+- Architecture visuals must not be plain rectangles connected by static lines.
+  Use inline SVG/CSS icons, semantic node shapes, grouped boundaries, animated
+  arrows/flow dots, and full-width diagrams. Keep all motion CSS/SVG-only and
+  purposeful.
 
 Aim for something genuinely worth sharing, not a placeholder.
 

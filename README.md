@@ -12,12 +12,16 @@ JavaScript or external assets.
 
 - **Visual brief first:** source type, audience, confidence, reader job, and
   what to inspect first.
-- **Source-first identity:** a repository can feel like an IDE, a paper can feel
-  like an annotated brief, and a product page can feel editorial.
+- **Source-first identity:** a repository can feel like an IDE, docs workspace,
+  directory mock, or wide system canvas; a paper can feel like an annotated
+  brief; a product page can feel editorial.
+- **Deep architecture by default:** repo visuals should explain modules,
+  contracts, runtime paths, tests, risks, and exact files to inspect.
 - **Interactive without JavaScript:** anchors, `:target`, `details`, and CSS
   states create navigable documents that still work in strict sandboxes.
-- **Boundary-safe diagrams:** arrows stop at node edges, avoid labels, and keep
-  complex systems readable.
+- **Crafted architecture diagrams:** arrows stop at node edges, animated SVG
+  flows clarify direction, icons identify component types, and large maps use
+  the full available width.
 - **Evidence-aware summaries:** source-backed facts and inferred summaries are
   visually separated.
 
@@ -27,10 +31,10 @@ JavaScript or external assets.
 
 Generated from the public
 [`Mario-Vishal/tokengate`](https://github.com/Mario-Vishal/tokengate) repository
-using the FlowThis skill. The visual is structured like a Mac/VS Code-style IDE:
-top summary, left activity bar, Explorer tree with an explicit Architecture
-folder, file tabs, and a right editor pane that changes when you select a folder
-or file.
+using the FlowThis skill. This example uses a Mac/VS Code-style layout, but the
+skill does not require every repository visual to look like an IDE. Future repo
+visuals can use wide architecture canvases, docs-style workspaces, directory
+mocks with previews, or hybrid layouts when that better explains the source.
 
 No secrets, env values, or raw private source are embedded.
 
@@ -110,7 +114,7 @@ Every output should be:
 | Source | Default Visual Pattern |
 | --- | --- |
 | Research paper / PDF | Paper brief with contributions, method map, experiments, limits, read-next |
-| Repository / codebase | IDE-style explorer, top summary, Architecture folder, large architecture map, flows, key contracts, risks |
+| Repository / codebase | Deep architecture workspace, top summary, detailed repo/file drill-down, large animated maps, flows, contracts, runtime, tests, risks |
 | Software architecture | System boundaries, services, stores, request paths, failure points |
 | Conversation / debug log | Timeline, decisions, blockers, current state, next actions |
 | Product / advertisement | Offer page, audience, pain, benefits, proof, CTA |
