@@ -31,10 +31,10 @@ JavaScript or external assets.
 
 Generated from the public
 [`Mario-Vishal/tokengate`](https://github.com/Mario-Vishal/tokengate) repository
-using the FlowThis skill. This example uses a Mac/VS Code-style layout, but the
-skill does not require every repository visual to look like an IDE. Future repo
-visuals can use wide architecture canvases, docs-style workspaces, directory
-mocks with previews, or hybrid layouts when that better explains the source.
+using the FlowThis skill. The current example uses a wide animated architecture
+canvas, semantic inline SVG icons, a directory mock with file previews, and
+detailed module notes for core contracts, ranking, selection, runtime, audit,
+tests, and review targets.
 
 No secrets, env values, or raw private source are embedded.
 

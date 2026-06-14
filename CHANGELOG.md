@@ -33,3 +33,7 @@
   mandatory IDE mockups. Added guidance for wide architecture canvases, semantic
   icons, animated SVG flow arrows, directory/file previews, detailed module/file
   drill-downs, contracts, runtime maps, tests, and read-next paths.
+- Regenerated `tokengate-repo-architecture.html` as the first deep architecture
+  example: full-width animated SVG system canvas, semantic icons, directory mock
+  with previews, deeper module notes, runtime/audit/test detail, and lightweight
+  FlowThis/source attribution.

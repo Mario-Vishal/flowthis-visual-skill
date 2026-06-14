@@ -3,39 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TokenGate IDE Architecture Visual</title>
+  <title>TokenGate Deep Architecture Visual</title>
   <style>
     :root {
       color-scheme: light dark;
-      --bg: #e7ecf3;
-      --ink: #15181e;
-      --muted: #667085;
-      --window: #f8fafc;
-      --chrome: #e5e7eb;
-      --sidebar: #111827;
-      --explorer: #1f2937;
-      --editor: #fbfdff;
+      --bg: #eef2f6;
+      --surface: #fbfcfe;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #647184;
       --line: #cbd5e1;
-      --blue: #3b82f6;
-      --cyan: #06b6d4;
-      --green: #22c55e;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --violet: #8b5cf6;
-      --slate: #475569;
-      --shadow: 0 28px 80px rgba(15, 23, 42, .18);
+      --blue: #2563eb;
+      --cyan: #0891b2;
+      --green: #16a34a;
+      --amber: #d97706;
+      --rose: #e11d48;
+      --violet: #7c3aed;
+      --slate: #334155;
+      --shadow: 0 24px 80px rgba(15, 23, 42, .13);
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #10151f;
-        --ink: #eef2ff;
-        --muted: #a8b3c7;
-        --window: #111827;
-        --chrome: #0f172a;
-        --sidebar: #060914;
-        --explorer: #101826;
-        --editor: #0f172a;
-        --line: #263244;
+        --bg: #11161f;
+        --surface: #151b25;
+        --panel: #101620;
+        --ink: #eef3fb;
+        --muted: #9aa7ba;
+        --line: #2a3547;
         --shadow: none;
       }
     }
@@ -45,32 +39,22 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 12% 8%, rgba(59,130,246,.18), transparent 32%),
-        radial-gradient(circle at 88% 12%, rgba(139,92,246,.13), transparent 30%),
-        linear-gradient(135deg, var(--bg), #f7f1e8 70%);
+        linear-gradient(180deg, rgba(37, 99, 235, .09), transparent 280px),
+        var(--bg);
       color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background:
-          radial-gradient(circle at 12% 8%, rgba(59,130,246,.15), transparent 32%),
-          radial-gradient(circle at 88% 12%, rgba(139,92,246,.14), transparent 30%),
-          var(--bg);
-      }
-    }
     a { color: inherit; }
     .page {
-      max-width: 1500px;
+      width: min(100%, 1760px);
       margin: 0 auto;
-      padding: clamp(1rem, 3vw, 2rem);
+      padding: clamp(1rem, 2.2vw, 2rem);
     }
     .hero {
       display: grid;
       gap: 1rem;
-      margin-bottom: 1rem;
-      padding: .75rem .35rem;
+      padding: .5rem .25rem 1rem;
     }
     .brief {
       display: flex;
@@ -82,156 +66,196 @@
       gap: .35rem;
       align-items: center;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.78);
+      background: color-mix(in srgb, var(--panel) 84%, transparent);
       color: var(--muted);
       border-radius: 999px;
       padding: .34rem .62rem;
       font-size: .78rem;
       font-weight: 760;
     }
-    @media (prefers-color-scheme: dark) {
-      .chip { background: rgba(15,23,42,.78); }
-    }
     .chip strong { color: var(--ink); }
     h1 {
-      max-width: 1080px;
+      max-width: 1180px;
       margin: 0;
-      font-size: clamp(2.2rem, 5vw, 5.5rem);
-      line-height: .97;
+      font-size: clamp(2.25rem, 5.5vw, 6.25rem);
+      line-height: .96;
       letter-spacing: 0;
     }
     .lead {
-      max-width: 860px;
+      max-width: 980px;
       margin: 0;
       color: var(--muted);
       font-size: 1.08rem;
-      line-height: 1.6;
+      line-height: 1.65;
     }
-    .summary-band {
+    .top-summary {
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr 1fr;
-      gap: .75rem;
-      margin-top: .25rem;
-      max-width: 1220px;
+      gap: .8rem;
+      margin-top: .35rem;
     }
-    .summary-band article {
+    .summary-card,
+    .panel,
+    .file-card,
+    .mini {
       border: 1px solid var(--line);
       border-radius: .55rem;
-      background: rgba(255,255,255,.7);
-      padding: .85rem;
+      background: color-mix(in srgb, var(--panel) 88%, transparent);
+      box-shadow: var(--shadow);
     }
-    @media (prefers-color-scheme: dark) {
-      .summary-band article { background: rgba(15,23,42,.72); }
+    .summary-card {
+      padding: .95rem;
+      min-height: 112px;
     }
-    .summary-band b {
+    .summary-card b,
+    .mini b,
+    .file-card b {
       display: block;
-      margin-bottom: .28rem;
+      margin-bottom: .35rem;
       color: var(--ink);
     }
-    .summary-band p {
-      margin: 0;
-      font-size: .9rem;
+    p, li {
+      color: var(--muted);
+      line-height: 1.6;
     }
-    .ide {
-      min-height: 790px;
+    .summary-card p,
+    .mini p,
+    .file-card p { margin: 0; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 1.5rem 0 .75rem;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 3.1rem);
+      line-height: 1;
+    }
+    .section-head p {
+      max-width: 760px;
+      margin: 0;
+    }
+    .architecture-shell {
       border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--window);
+      border-radius: .85rem;
+      background: var(--surface);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-    .titlebar {
-      height: 42px;
-      display: grid;
-      grid-template-columns: 120px 1fr 220px;
-      align-items: center;
-      background: var(--chrome);
-      border-bottom: 1px solid var(--line);
-      padding: 0 .85rem;
-      font-size: .8rem;
-      color: var(--muted);
-    }
-    .traffic {
-      display: flex;
-      gap: .45rem;
-    }
-    .traffic span {
-      width: .78rem;
-      height: .78rem;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .close { background: #ff5f57; }
-    .min { background: #ffbd2e; }
-    .max { background: #28c840; }
-    .title {
-      text-align: center;
-      font-weight: 760;
-      color: var(--ink);
-    }
-    .status {
-      text-align: right;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    }
-    .workbench {
-      display: grid;
-      grid-template-columns: 3.25rem 21rem minmax(0, 1fr);
-      min-height: 748px;
-    }
-    .activity {
-      background: var(--sidebar);
-      color: #cbd5e1;
-      display: grid;
-      align-content: start;
-      gap: .75rem;
-      padding: .75rem .45rem;
-      border-right: 1px solid rgba(255,255,255,.08);
-    }
-    .activity a {
-      height: 2.25rem;
-      display: grid;
-      place-items: center;
-      border-radius: .5rem;
-      text-decoration: none;
-      color: #94a3b8;
-      font-weight: 850;
-      font-size: .82rem;
-    }
-    .activity a.active,
-    .activity a:hover {
-      background: rgba(255,255,255,.1);
-      color: white;
-    }
-    .explorer {
-      background: var(--explorer);
-      color: #cbd5e1;
-      border-right: 1px solid rgba(255,255,255,.08);
-      min-width: 0;
-    }
-    .explorer-head {
-      height: 42px;
+    .canvas-toolbar {
+      min-height: 44px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 .85rem;
-      font-size: .74rem;
+      gap: 1rem;
+      padding: .7rem .9rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    .canvas-toolbar b { color: var(--ink); }
+    .architecture-map {
+      overflow: auto;
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--line) 22%, transparent) 1px, transparent 1px),
+        linear-gradient(180deg, color-mix(in srgb, var(--line) 22%, transparent) 1px, transparent 1px),
+        var(--surface);
+      background-size: 36px 36px;
+    }
+    .architecture-map svg {
+      display: block;
+      width: 100%;
+      min-width: 1280px;
+      height: auto;
+    }
+    .boundary {
+      fill: color-mix(in srgb, var(--panel) 82%, transparent);
+      stroke: var(--line);
+      stroke-width: 1.2;
+      stroke-dasharray: 8 8;
+      rx: 18;
+    }
+    .node {
+      fill: var(--panel);
+      stroke: var(--line);
+      stroke-width: 1.4;
+      rx: 14;
+    }
+    .n-blue { stroke: var(--blue); fill: color-mix(in srgb, var(--blue) 11%, var(--panel)); }
+    .n-cyan { stroke: var(--cyan); fill: color-mix(in srgb, var(--cyan) 11%, var(--panel)); }
+    .n-green { stroke: var(--green); fill: color-mix(in srgb, var(--green) 11%, var(--panel)); }
+    .n-amber { stroke: var(--amber); fill: color-mix(in srgb, var(--amber) 13%, var(--panel)); }
+    .n-rose { stroke: var(--rose); fill: color-mix(in srgb, var(--rose) 10%, var(--panel)); }
+    .n-violet { stroke: var(--violet); fill: color-mix(in srgb, var(--violet) 11%, var(--panel)); }
+    .svg-title { fill: var(--ink); font-size: 18px; font-weight: 850; }
+    .svg-sub { fill: var(--muted); font-size: 12px; }
+    .svg-label { fill: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+    .icon-stroke { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .flow {
+      fill: none;
+      stroke-width: 3;
+      marker-end: url(#arrow-blue);
+      stroke: var(--blue);
+    }
+    .flow.green { stroke: var(--green); marker-end: url(#arrow-green); }
+    .flow.amber { stroke: var(--amber); marker-end: url(#arrow-amber); }
+    .flow.rose { stroke: var(--rose); marker-end: url(#arrow-rose); }
+    .flow.violet { stroke: var(--violet); marker-end: url(#arrow-violet); }
+    .flow.dash {
+      stroke-dasharray: 12 14;
+      animation: flowDash 1.6s linear infinite;
+    }
+    .pulse {
+      animation: softPulse 1.9s ease-in-out infinite;
+      transform-origin: center;
+    }
+    .label-box { fill: var(--surface); stroke: var(--line); rx: 8; }
+    .label-text { fill: var(--muted); font-size: 12px; font-weight: 850; }
+    @keyframes flowDash { to { stroke-dashoffset: -52; } }
+    @keyframes softPulse {
+      0%, 100% { opacity: .68; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow.dash, .pulse { animation: none; }
+    }
+    .workspace {
+      display: grid;
+      grid-template-columns: 21rem minmax(0, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .directory {
+      border: 1px solid var(--line);
+      border-radius: .7rem;
+      background: #101827;
+      color: #cbd5e1;
+      overflow: hidden;
+    }
+    .directory header {
+      display: flex;
+      justify-content: space-between;
+      padding: .75rem .85rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: .06em;
-      color: #94a3b8;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      font-size: .74rem;
     }
     .tree {
-      padding: .55rem;
+      padding: .6rem;
       font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
       font-size: .84rem;
     }
     .row {
-      min-height: 1.75rem;
+      min-height: 1.8rem;
       display: grid;
-      grid-template-columns: 1.15rem 1fr auto;
-      gap: .3rem;
+      grid-template-columns: 1.3rem 1fr auto;
+      gap: .35rem;
       align-items: center;
-      padding: .16rem .35rem;
+      padding: .18rem .35rem;
       border-radius: .34rem;
       color: #cbd5e1;
       text-decoration: none;
@@ -245,221 +269,100 @@
       color: white;
       font-weight: 850;
     }
-    .row:target,
-    .row.selected {
-      background: rgba(59,130,246,.22);
-      color: white;
-    }
+    .row .tag { color: #64748b; font-size: .7rem; }
     .indent-1 { margin-left: 1rem; }
     .indent-2 { margin-left: 2rem; }
     .indent-3 { margin-left: 3rem; }
-    .icon { width: 1rem; color: #94a3b8; }
-    .folder { color: #f59e0b; }
-    .py { color: #3b82f6; }
-    .toml { color: #8b5cf6; }
-    .md { color: #22c55e; }
-    .test { color: #f43f5e; }
-    .badge {
-      color: #64748b;
-      font-size: .7rem;
-    }
-    .editor-shell {
-      min-width: 0;
-      background: var(--editor);
+    .folder { color: #fbbf24; }
+    .py { color: #60a5fa; }
+    .cfg { color: #a78bfa; }
+    .test { color: #fb7185; }
+    .doc { color: #34d399; }
+    .details {
       display: grid;
-      grid-template-rows: 42px 1fr 28px;
+      gap: 1rem;
     }
-    .tabs {
-      display: flex;
-      align-items: stretch;
-      overflow: auto;
-      background: var(--chrome);
-      border-bottom: 1px solid var(--line);
+    .panel {
+      padding: 1rem;
     }
-    .tab {
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      min-width: 9rem;
-      padding: 0 .9rem;
-      border-right: 1px solid var(--line);
-      color: var(--muted);
-      text-decoration: none;
-      font-size: .84rem;
-      white-space: nowrap;
+    .panel h3,
+    .file-card h3 {
+      margin: 0 0 .55rem;
+      font-size: 1.1rem;
     }
-    .tab:hover,
-    .tab.active {
-      background: var(--editor);
-      color: var(--ink);
-    }
-    .editor {
-      position: relative;
-      overflow: auto;
-      min-height: 0;
-    }
-    .file-view {
-      display: none;
-      min-height: 100%;
-      padding: clamp(1.25rem, 3vw, 2.4rem);
-    }
-    .file-view:first-child,
-    .file-view:target {
-      display: block;
-    }
-    .editor:has(.file-view:target) .file-view:first-child {
-      display: none;
-    }
-    .path {
-      display: inline-flex;
-      gap: .4rem;
-      align-items: center;
-      color: var(--muted);
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: .82rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: .32rem .58rem;
-      background: rgba(148,163,184,.08);
-      margin-bottom: 1rem;
-    }
-    .file-view h2 {
-      margin: 0 0 .5rem;
-      font-size: clamp(1.6rem, 3vw, 2.8rem);
-      line-height: 1;
-      letter-spacing: 0;
-    }
-    .file-view h3 {
-      margin: 0 0 .45rem;
-      font-size: 1rem;
-    }
-    p, li {
-      color: var(--muted);
-      line-height: 1.58;
-    }
-    .summary-grid,
-    .cards,
-    .facts,
-    .pipeline {
+    .file-grid {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: .9rem;
     }
-    .summary-grid {
+    .file-card {
+      padding: .95rem;
+      box-shadow: none;
+    }
+    .file-card .path {
+      display: inline-flex;
+      margin-bottom: .55rem;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: .78rem;
+    }
+    .preview {
+      height: 86px;
+      border: 1px solid var(--line);
+      border-radius: .45rem;
+      margin-bottom: .75rem;
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--blue) 25%, transparent), transparent 55%),
+        repeating-linear-gradient(180deg, color-mix(in srgb, var(--line) 42%, transparent) 0 1px, transparent 1px 18px),
+        color-mix(in srgb, var(--panel) 86%, var(--bg));
+      position: relative;
+      overflow: hidden;
+    }
+    .preview::after {
+      content: "";
+      position: absolute;
+      inset: 16px 18px auto;
+      height: 9px;
+      border-radius: 99px;
+      background: var(--blue);
+      box-shadow: 0 22px 0 color-mix(in srgb, var(--green) 72%, transparent), 0 44px 0 color-mix(in srgb, var(--amber) 72%, transparent);
+      opacity: .8;
+    }
+    .mini-grid {
+      display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin: 1rem 0 1.25rem;
+      gap: .8rem;
+      margin-top: 1rem;
     }
-    .cards {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .mini {
+      padding: .85rem;
+      box-shadow: none;
     }
-    .facts {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .card,
-    .fact,
-    .panel {
+    .accent-blue { border-top: 4px solid var(--blue); }
+    .accent-green { border-top: 4px solid var(--green); }
+    .accent-amber { border-top: 4px solid var(--amber); }
+    .accent-rose { border-top: 4px solid var(--rose); }
+    .accent-violet { border-top: 4px solid var(--violet); }
+    details {
       border: 1px solid var(--line);
       border-radius: .55rem;
-      background: rgba(255,255,255,.72);
-      padding: .95rem;
+      background: color-mix(in srgb, var(--panel) 88%, transparent);
+      padding: .9rem 1rem;
     }
-    @media (prefers-color-scheme: dark) {
-      .card, .fact, .panel { background: rgba(15,23,42,.74); }
-    }
-    .card b,
-    .fact b {
-      display: block;
+    summary {
+      cursor: pointer;
+      font-weight: 850;
       color: var(--ink);
-      margin-bottom: .3rem;
-      font-size: 1rem;
-    }
-    .card.accent-blue { border-top: 4px solid var(--blue); }
-    .card.accent-green { border-top: 4px solid var(--green); }
-    .card.accent-amber { border-top: 4px solid var(--amber); }
-    .card.accent-rose { border-top: 4px solid var(--rose); }
-    .card.accent-violet { border-top: 4px solid var(--violet); }
-    .map {
-      margin-top: 1rem;
-      border: 1px solid var(--line);
-      border-radius: .6rem;
-      overflow: auto;
-      background: rgba(255,255,255,.66);
-    }
-    .file-view.architecture-view {
-      padding: clamp(.85rem, 1.4vw, 1.25rem);
-    }
-    .architecture-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: .7rem;
-    }
-    .architecture-head p {
-      max-width: 650px;
-      margin: 0;
-    }
-    .map.large {
-      height: min(70vh, 660px);
-      min-height: 560px;
-      margin-top: .5rem;
-    }
-    .map.large svg {
-      width: 100%;
-      min-width: 0;
-      height: 100%;
-    }
-    @media (prefers-color-scheme: dark) {
-      .map { background: rgba(2,6,23,.28); }
-    }
-    svg {
-      display: block;
-      width: 100%;
-      min-width: 960px;
-      height: auto;
-    }
-    .node { fill: rgba(255,255,255,.9); stroke: var(--line); stroke-width: 1.3; rx: 8; }
-    @media (prefers-color-scheme: dark) {
-      .node { fill: rgba(15,23,42,.9); }
-    }
-    .n-blue { stroke: var(--blue); fill: rgba(59,130,246,.10); }
-    .n-green { stroke: var(--green); fill: rgba(34,197,94,.11); }
-    .n-amber { stroke: var(--amber); fill: rgba(245,158,11,.12); }
-    .n-rose { stroke: var(--rose); fill: rgba(244,63,94,.10); }
-    .n-violet { stroke: var(--violet); fill: rgba(139,92,246,.11); }
-    .svg-title { fill: var(--ink); font-size: 15px; font-weight: 850; }
-    .svg-sub { fill: var(--muted); font-size: 12px; }
-    .flow { fill: none; stroke: var(--blue); stroke-width: 2.3; marker-end: url(#arrow-blue); }
-    .flow.green { stroke: var(--green); marker-end: url(#arrow-green); }
-    .flow.amber { stroke: var(--amber); marker-end: url(#arrow-amber); stroke-dasharray: 7 7; }
-    .flow.violet { stroke: var(--violet); marker-end: url(#arrow-violet); }
-    .flow.rose { stroke: var(--rose); marker-end: url(#arrow-rose); stroke-dasharray: 8 7; }
-    .label { fill: var(--editor); stroke: var(--line); rx: 6; }
-    .label-text { fill: var(--muted); font-size: 11px; font-weight: 800; }
-    .statusbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: center;
-      padding: 0 .75rem;
-      background: var(--blue);
-      color: white;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: .74rem;
-    }
-    .statusbar span {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
     .attribution {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-      align-items: center;
-      margin-top: .85rem;
-      color: var(--muted);
-      font-size: .86rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
       padding: 0 .25rem;
+      color: var(--muted);
+      font-size: .88rem;
     }
     .attribution a {
       color: var(--ink);
@@ -467,35 +370,14 @@
       text-decoration: none;
       border-bottom: 1px solid var(--line);
     }
-    .attribution a:hover {
-      border-color: var(--blue);
-    }
-    .note {
-      margin-top: 1rem;
-      border-left: 4px solid var(--amber);
-      background: rgba(245,158,11,.1);
-      padding: .85rem 1rem;
-      border-radius: .4rem;
-      color: var(--muted);
-    }
-    @media (max-width: 980px) {
-      .page { padding: 0; }
-      .ide { border-radius: 0; min-height: 100vh; }
-      .titlebar { grid-template-columns: 90px 1fr; }
-      .status { display: none; }
-      .workbench { grid-template-columns: 2.8rem minmax(12rem, 15rem) minmax(0, 1fr); }
-      .summary-grid, .cards, .facts, .summary-band { grid-template-columns: 1fr; }
-      .map.large { height: 560px; }
+    @media (max-width: 1080px) {
+      .top-summary, .workspace, .file-grid, .mini-grid { grid-template-columns: 1fr; }
+      .architecture-map svg { min-width: 1120px; }
     }
     @media (max-width: 720px) {
-      .hero { padding: 1rem; }
-      .workbench { display: block; }
-      .activity { display: none; }
-      .explorer { max-height: 18rem; overflow: auto; border-bottom: 1px solid rgba(255,255,255,.08); }
-      .editor-shell { min-height: 720px; }
-      .file-view { padding: 1rem; }
-      .architecture-head { display: block; }
-      .attribution { display: grid; padding: 0 1rem 1rem; }
+      .page { padding: .85rem; }
+      .section-head { display: block; }
+      .architecture-map svg { min-width: 980px; }
     }
   </style>
 </head>
@@ -504,344 +386,240 @@
     <section class="hero" aria-label="Visual brief">
       <div class="brief">
         <span class="chip"><strong>Source</strong> public Mario-Vishal/tokengate repo</span>
-        <span class="chip"><strong>Visual type</strong> IDE-style repository architecture</span>
-        <span class="chip"><strong>Secret posture</strong> no env values, no raw source dumps</span>
-        <span class="chip"><strong>Reader job</strong> understand modules and pipeline</span>
+        <span class="chip"><strong>Visual type</strong> deep architecture workspace</span>
+        <span class="chip"><strong>Interaction</strong> CSS/SVG only</span>
+        <span class="chip"><strong>Inspect first</strong> animated pipeline map</span>
       </div>
-      <h1>TokenGate context optimization, mapped for implementation review.</h1>
-      <p class="lead">Start with the summary, then select items in the Explorer. The editor pane changes to focused notes, evidence, architecture diagrams, and review targets for each selected area.</p>
-      <div class="summary-band" aria-label="Repository summary">
-        <article><b>What it does</b><p>Builds a smaller, auditable prompt from retrieved context instead of stuffing every top-ranked chunk into the LLM window.</p></article>
-        <article><b>Core loop</b><p>Rank, rerank, deduplicate, select, budget, optionally compress, then emit prompt plus audit trail.</p></article>
-        <article><b>Architecture focus</b><p>The Architecture folder in the Explorer opens the main pipeline diagram at full editor scale.</p></article>
-        <article><b>Review lens</b><p>Inspect model dependency cost, compression trust, benchmark scope, audit privacy, and config drift.</p></article>
+      <h1>TokenGate's architecture, from candidate context to auditable prompt.</h1>
+      <p class="lead">This visual treats the repository as a system, not a folder list. Start with the full-width pipeline map, then use the directory mock and module notes to inspect responsibilities, contracts, runtime assumptions, tests, and review targets.</p>
+      <div class="top-summary">
+        <article class="summary-card accent-blue"><b>Product job</b><p>Optimize retrieved context before it reaches an LLM by selecting what is useful, removing waste, and preserving a decision trail.</p></article>
+        <article class="summary-card accent-green"><b>Core path</b><p>Query and candidate blocks pass through ranking, reranking, deduplication, selection, budgeting, optional compression, prompt assembly, and audit generation.</p></article>
+        <article class="summary-card accent-violet"><b>Deep read</b><p>Core owns the contract, ranking and selection shape relevance, budgeting enforces context limits, and audit makes the outcome inspectable.</p></article>
+        <article class="summary-card accent-amber"><b>Review focus</b><p>Watch model dependency cost, compression trust, benchmark scope, audit privacy, config drift, and reproducible strategy settings.</p></article>
       </div>
     </section>
 
-    <div class="ide" data-element-id="tokengate-ide-window">
-      <div class="titlebar">
-        <div class="traffic" aria-hidden="true"><span class="close"></span><span class="min"></span><span class="max"></span></div>
-        <div class="title">TokenGate - Repository Architecture.visual</div>
-        <div class="status">public repo / skill-only</div>
+    <section id="architecture" data-element-id="architecture-canvas">
+      <div class="section-head">
+        <h2>Architecture Canvas</h2>
+        <p>Large, icon-based map with animated flow paths. Request flow, persistence, audit, and optional compression use distinct colors so the system is readable before zooming into files.</p>
       </div>
-      <div class="workbench">
-        <nav class="activity" aria-label="Activity bar">
-          <a class="active" href="#root" title="Explorer">EX</a>
-          <a href="#pipeline" title="Architecture">AR</a>
-          <a href="#audit" title="Audit">AU</a>
-          <a href="#risks" title="Risks">RI</a>
-        </nav>
+      <div class="architecture-shell">
+        <div class="canvas-toolbar">
+          <span><b>Architecture / context-optimizer.map</b></span>
+          <span>animated SVG arrows | boundary-safe connectors | no scripts</span>
+        </div>
+        <div class="architecture-map" role="img" aria-label="TokenGate deep architecture map">
+          <svg viewBox="0 0 1600 860" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#2563eb"></path></marker>
+              <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#16a34a"></path></marker>
+              <marker id="arrow-amber" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#d97706"></path></marker>
+              <marker id="arrow-rose" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#e11d48"></path></marker>
+              <marker id="arrow-violet" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#7c3aed"></path></marker>
+              <symbol id="ico-user" viewBox="0 0 32 32"><circle class="icon-stroke" cx="16" cy="11" r="5"></circle><path class="icon-stroke" d="M7 27c1.6-6 16.4-6 18 0"></path></symbol>
+              <symbol id="ico-blocks" viewBox="0 0 32 32"><rect class="icon-stroke" x="5" y="7" width="10" height="8" rx="2"></rect><rect class="icon-stroke" x="17" y="7" width="10" height="8" rx="2"></rect><rect class="icon-stroke" x="11" y="18" width="10" height="8" rx="2"></rect></symbol>
+              <symbol id="ico-rank" viewBox="0 0 32 32"><path class="icon-stroke" d="M8 24V12M16 24V7M24 24V16"></path><path class="icon-stroke" d="M5 24h22"></path></symbol>
+              <symbol id="ico-filter" viewBox="0 0 32 32"><path class="icon-stroke" d="M6 8h20l-8 9v6l-4 2v-8z"></path></symbol>
+              <symbol id="ico-db" viewBox="0 0 32 32"><ellipse class="icon-stroke" cx="16" cy="8" rx="10" ry="4"></ellipse><path class="icon-stroke" d="M6 8v16c0 2.2 4.5 4 10 4s10-1.8 10-4V8"></path><path class="icon-stroke" d="M6 16c0 2.2 4.5 4 10 4s10-1.8 10-4"></path></symbol>
+              <symbol id="ico-doc" viewBox="0 0 32 32"><path class="icon-stroke" d="M9 4h10l5 5v19H9z"></path><path class="icon-stroke" d="M19 4v6h6M13 16h10M13 21h8"></path></symbol>
+              <symbol id="ico-shield" viewBox="0 0 32 32"><path class="icon-stroke" d="M16 4l10 4v7c0 6-4 10-10 13C10 25 6 21 6 15V8z"></path><path class="icon-stroke" d="M11 16l3 3 7-8"></path></symbol>
+              <symbol id="ico-gear" viewBox="0 0 32 32"><circle class="icon-stroke" cx="16" cy="16" r="4"></circle><path class="icon-stroke" d="M16 4v5M16 23v5M4 16h5M23 16h5M7.5 7.5l3.5 3.5M21 21l3.5 3.5M24.5 7.5L21 11M11 21l-3.5 3.5"></path></symbol>
+              <symbol id="ico-check" viewBox="0 0 32 32"><path class="icon-stroke" d="M6 17l6 6L26 9"></path><rect class="icon-stroke" x="5" y="5" width="22" height="22" rx="5"></rect></symbol>
+            </defs>
 
-        <aside class="explorer" aria-label="TokenGate Explorer">
-          <div class="explorer-head"><span>Explorer</span><span>...</span></div>
+            <rect class="boundary" x="36" y="44" width="318" height="716"></rect>
+            <text class="svg-label" x="64" y="82">INPUTS</text>
+            <rect class="boundary" x="410" y="44" width="776" height="716"></rect>
+            <text class="svg-label" x="438" y="82">OPTIMIZATION PIPELINE</text>
+            <rect class="boundary" x="1242" y="44" width="312" height="716"></rect>
+            <text class="svg-label" x="1270" y="82">OUTPUTS AND TRUST</text>
+
+            <rect class="node n-blue" x="86" y="130" width="210" height="106"></rect>
+            <use href="#ico-user" x="104" y="148" width="32" height="32" color="#2563eb"></use>
+            <text class="svg-title" x="148" y="168">User query</text>
+            <text class="svg-sub" x="104" y="202">task, question, intent</text>
+
+            <rect class="node n-cyan" x="86" y="330" width="210" height="116"></rect>
+            <use href="#ico-blocks" x="104" y="350" width="32" height="32" color="#0891b2"></use>
+            <text class="svg-title" x="148" y="370">TokenBlock set</text>
+            <text class="svg-sub" x="104" y="406">retrieved chunks</text>
+            <text class="svg-sub" x="104" y="425">metadata + token counts</text>
+
+            <rect class="node n-violet" x="86" y="555" width="210" height="112"></rect>
+            <use href="#ico-gear" x="104" y="575" width="32" height="32" color="#7c3aed"></use>
+            <text class="svg-title" x="148" y="596">Config</text>
+            <text class="svg-sub" x="104" y="630">strategy, thresholds</text>
+            <text class="svg-sub" x="104" y="649">budget, priorities</text>
+
+            <rect class="node n-green" x="470" y="120" width="220" height="110"></rect>
+            <use href="#ico-rank" x="490" y="142" width="32" height="32" color="#16a34a"></use>
+            <text class="svg-title" x="535" y="162">Hybrid rank</text>
+            <text class="svg-sub" x="490" y="197">semantic + keyword</text>
+            <text class="svg-sub" x="490" y="216">recency/source signals</text>
+
+            <rect class="node n-violet" x="760" y="120" width="220" height="110"></rect>
+            <use href="#ico-rank" x="780" y="142" width="32" height="32" color="#7c3aed"></use>
+            <text class="svg-title" x="825" y="162">Rerank</text>
+            <text class="svg-sub" x="780" y="197">cross-encoder stage</text>
+            <text class="svg-sub" x="780" y="216">quality over speed</text>
+
+            <rect class="node n-green" x="470" y="342" width="220" height="110"></rect>
+            <use href="#ico-filter" x="490" y="364" width="32" height="32" color="#16a34a"></use>
+            <text class="svg-title" x="535" y="384">Deduplicate</text>
+            <text class="svg-sub" x="490" y="419">exact, near, semantic</text>
+            <text class="svg-sub" x="490" y="438">collapse overlap</text>
+
+            <rect class="node n-violet" x="760" y="342" width="220" height="110"></rect>
+            <use href="#ico-filter" x="780" y="364" width="32" height="32" color="#7c3aed"></use>
+            <text class="svg-title" x="825" y="384">Select</text>
+            <text class="svg-sub" x="780" y="419">adaptive cutoff + MMR</text>
+            <text class="svg-sub" x="780" y="438">relevance and diversity</text>
+
+            <rect class="node n-amber" x="1008" y="232" width="210" height="120"></rect>
+            <use href="#ico-db" x="1028" y="256" width="32" height="32" color="#d97706"></use>
+            <text class="svg-title" x="1072" y="276">Budget fit</text>
+            <text class="svg-sub" x="1028" y="314">value per token</text>
+            <text class="svg-sub" x="1028" y="333">prompt headroom</text>
+
+            <rect class="node n-rose" x="1008" y="500" width="210" height="106"></rect>
+            <use href="#ico-doc" x="1028" y="520" width="32" height="32" color="#e11d48"></use>
+            <text class="svg-title" x="1072" y="540">Compression</text>
+            <text class="svg-sub" x="1028" y="576">optional, off by default</text>
+
+            <rect class="node n-green pulse" x="1300" y="164" width="200" height="110"></rect>
+            <use href="#ico-doc" x="1320" y="187" width="32" height="32" color="#16a34a"></use>
+            <text class="svg-title" x="1365" y="207">Final prompt</text>
+            <text class="svg-sub" x="1320" y="242">included blocks</text>
+            <text class="svg-sub" x="1320" y="261">ready for downstream LLM</text>
+
+            <rect class="node n-blue pulse" x="1300" y="390" width="200" height="122"></rect>
+            <use href="#ico-shield" x="1320" y="416" width="32" height="32" color="#2563eb"></use>
+            <text class="svg-title" x="1365" y="436">Audit report</text>
+            <text class="svg-sub" x="1320" y="471">stage counts</text>
+            <text class="svg-sub" x="1320" y="490">keep/drop reasons</text>
+
+            <rect class="node n-violet" x="1300" y="610" width="200" height="96"></rect>
+            <use href="#ico-check" x="1320" y="628" width="32" height="32" color="#7c3aed"></use>
+            <text class="svg-title" x="1365" y="648">Dashboard</text>
+            <text class="svg-sub" x="1320" y="681">optional audit explorer</text>
+
+            <path class="flow dash green" d="M296 183 H470"></path>
+            <path class="flow dash" d="M296 388 H438 V397 H470"></path>
+            <path class="flow dash violet" d="M296 611 H390 V175 H470"></path>
+            <path class="flow dash violet" d="M690 175 H760"></path>
+            <path class="flow dash green" d="M690 397 H760"></path>
+            <path class="flow dash violet" d="M980 175 H1038 V232"></path>
+            <path class="flow dash green" d="M980 397 H1038 V352"></path>
+            <path class="flow dash amber" d="M1218 292 H1258 V219 H1300"></path>
+            <path class="flow dash rose" d="M1113 500 V352"></path>
+            <path class="flow dash" d="M1218 318 H1260 V451 H1300"></path>
+            <path class="flow dash" d="M1400 512 V610"></path>
+
+            <rect class="label-box" x="560" y="274" width="188" height="32"></rect>
+            <text class="label-text" x="580" y="295">score normalization</text>
+            <rect class="label-box" x="1008" y="410" width="150" height="32"></rect>
+            <text class="label-text" x="1028" y="431">opt-in branch</text>
+            <rect class="label-box" x="1255" y="332" width="132" height="32"></rect>
+            <text class="label-text" x="1274" y="353">decision trace</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="repository" data-element-id="repository-drilldown">
+      <div class="section-head">
+        <h2>Repository Drill-Down</h2>
+        <p>Directory mock with file previews and deeper summaries. Each item is source-backed from the public repo structure, README, package metadata, and exposed module names.</p>
+      </div>
+      <div class="workspace">
+        <aside class="directory" aria-label="TokenGate source tree">
+          <header><span>Architecture</span><span>source tree</span></header>
           <div class="tree">
-            <a class="row root selected" href="#root"><span class="icon folder">▾</span><span>tokengate</span><span class="badge">repo</span></a>
-            <a class="row indent-1" href="#pipeline"><span class="icon folder">▾</span><span>Architecture</span><span></span></a>
-            <a class="row indent-2" href="#pipeline"><span class="icon md">MAP</span><span>pipeline.map</span><span></span></a>
-            <a class="row indent-2" href="#risks"><span class="icon md">MD</span><span>review-targets.md</span><span></span></a>
-            <a class="row indent-1" href="#src"><span class="icon folder">▾</span><span>src/tokengate</span><span></span></a>
-            <a class="row indent-2" href="#core"><span class="icon folder">▾</span><span>core</span><span></span></a>
-            <a class="row indent-3" href="#optimizer"><span class="icon py">PY</span><span>optimizer.py</span><span></span></a>
-            <a class="row indent-3" href="#config"><span class="icon py">PY</span><span>config.py</span><span></span></a>
-            <a class="row indent-3" href="#result"><span class="icon py">PY</span><span>result.py</span><span></span></a>
-            <a class="row indent-2" href="#ranking"><span class="icon folder">▾</span><span>ranking</span><span></span></a>
-            <a class="row indent-3" href="#hybrid"><span class="icon py">PY</span><span>hybrid_ranker.py</span><span></span></a>
-            <a class="row indent-3" href="#reranker"><span class="icon py">PY</span><span>reranker_stage.py</span><span></span></a>
-            <a class="row indent-2" href="#selection"><span class="icon folder">▾</span><span>selection</span><span></span></a>
-            <a class="row indent-2" href="#dedup"><span class="icon folder">▾</span><span>deduplication</span><span></span></a>
-            <a class="row indent-2" href="#budgeting"><span class="icon folder">▾</span><span>budgeting</span><span></span></a>
-            <a class="row indent-2" href="#compression"><span class="icon folder">▾</span><span>compression</span><span>off</span></a>
-            <a class="row indent-2" href="#audit"><span class="icon folder">▾</span><span>audit</span><span></span></a>
-            <a class="row indent-2" href="#dashboard"><span class="icon folder">▾</span><span>dashboard</span><span>extra</span></a>
-            <a class="row indent-1" href="#tests"><span class="icon test">TS</span><span>tests</span><span>236</span></a>
-            <a class="row indent-1" href="#pyproject"><span class="icon toml">TM</span><span>pyproject.toml</span><span></span></a>
-            <a class="row indent-1" href="#readme"><span class="icon md">MD</span><span>README.md</span><span></span></a>
+            <a class="row root" href="#architecture"><span class="folder">▾</span><span>tokengate</span><span class="tag">repo</span></a>
+            <a class="row indent-1" href="#architecture"><span class="folder">▾</span><span>Architecture</span><span></span></a>
+            <a class="row indent-2" href="#architecture"><span class="doc">MAP</span><span>context-optimizer.map</span><span></span></a>
+            <a class="row indent-1" href="#core"><span class="folder">▾</span><span>src/tokengate/core</span><span></span></a>
+            <a class="row indent-2" href="#core"><span class="py">PY</span><span>optimizer.py</span><span>entry</span></a>
+            <a class="row indent-2" href="#core"><span class="py">PY</span><span>config.py</span><span>policy</span></a>
+            <a class="row indent-2" href="#core"><span class="py">PY</span><span>result.py</span><span>audit</span></a>
+            <a class="row indent-1" href="#ranking"><span class="folder">▾</span><span>ranking</span><span></span></a>
+            <a class="row indent-2" href="#ranking"><span class="py">PY</span><span>hybrid_ranker.py</span><span></span></a>
+            <a class="row indent-2" href="#ranking"><span class="py">PY</span><span>reranker_stage.py</span><span></span></a>
+            <a class="row indent-1" href="#selection"><span class="folder">▾</span><span>selection</span><span></span></a>
+            <a class="row indent-1" href="#selection"><span class="folder">▾</span><span>deduplication</span><span></span></a>
+            <a class="row indent-1" href="#runtime"><span class="folder">▾</span><span>budgeting</span><span></span></a>
+            <a class="row indent-1" href="#runtime"><span class="folder">▾</span><span>compression</span><span>off</span></a>
+            <a class="row indent-1" href="#audit"><span class="folder">▾</span><span>audit</span><span></span></a>
+            <a class="row indent-1" href="#runtime"><span class="folder">▾</span><span>dashboard</span><span>extra</span></a>
+            <a class="row indent-1" href="#tests"><span class="test">TS</span><span>tests</span><span>236</span></a>
+            <a class="row indent-1" href="#runtime"><span class="cfg">TOML</span><span>pyproject.toml</span><span></span></a>
           </div>
         </aside>
 
-        <div class="editor-shell">
-          <div class="tabs" aria-label="Open tabs">
-            <a class="tab active" href="#root">tokengate</a>
-            <a class="tab" href="#pipeline">Architecture / pipeline.map</a>
-            <a class="tab" href="#optimizer">optimizer.py</a>
-            <a class="tab" href="#audit">audit_report.py</a>
-            <a class="tab" href="#risks">risks.md</a>
+        <div class="details">
+          <article class="panel" id="core" data-element-id="core-contract">
+            <h3>Core contract layer</h3>
+            <p>Core is the integration boundary. `optimizer.py` coordinates the end-to-end path, `config.py` defines strategy and validation surfaces, block/result models carry token metadata and decision records, and exported types make the library usable without importing internals.</p>
+            <div class="mini-grid">
+              <div class="mini accent-blue"><b>Inbound</b><p>Query, TokenBlock candidates, strategy/config.</p></div>
+              <div class="mini accent-green"><b>Outbound</b><p>Final prompt, included/compressed/dropped blocks, audit report.</p></div>
+              <div class="mini accent-amber"><b>Contract risk</b><p>Strategy settings should be versioned for reproducible evaluations.</p></div>
+              <div class="mini accent-violet"><b>Read next</b><p>`optimizer.py`, `config.py`, `result.py`, `block.py`.</p></div>
+            </div>
+          </article>
+
+          <div class="file-grid">
+            <article class="file-card" id="ranking" data-element-id="ranking-module">
+              <div class="preview"></div>
+              <span class="path">src/tokengate/ranking</span>
+              <h3>Ranking and reranking</h3>
+              <p>Combines semantic, keyword, source priority, recency, and token-efficiency signals before optional cross-encoder reranking.</p>
+            </article>
+            <article class="file-card" id="selection" data-element-id="selection-module">
+              <div class="preview"></div>
+              <span class="path">selection + deduplication</span>
+              <h3>Keep useful diversity</h3>
+              <p>Adaptive cutoff and MMR avoid blind top-N stuffing, while exact, near, and semantic deduplication reduce repeated context.</p>
+            </article>
+            <article class="file-card" id="runtime" data-element-id="runtime-module">
+              <div class="preview"></div>
+              <span class="path">budgeting + compression + dashboard</span>
+              <h3>Runtime choices</h3>
+              <p>Budgeting enforces prompt limits. Compression is present but off by default. Dashboard is an optional audit inspection surface.</p>
+            </article>
           </div>
 
-          <main class="editor">
-            <article class="file-view" id="root" data-element-id="file-root">
-              <span class="path">tokengate / repository overview</span>
-              <h2>Context optimization library for LLM applications</h2>
-              <p>TokenGate replaces top-k prompt stuffing with a staged context pipeline. It ranks, reranks, deduplicates, selects, budgets, optionally compresses, builds the final prompt, and records every decision in an audit trail.</p>
-              <div class="summary-grid">
-                <div class="card accent-blue"><b>Python 3.12</b><p>Package metadata pins the runtime for ML-wheel reliability.</p></div>
-                <div class="card accent-green"><b>No LLM in pipeline</b><p>README states optimization runs offline and is app-agnostic.</p></div>
-                <div class="card accent-violet"><b>Typed package</b><p>`py.typed`, strict mypy config, and public exports indicate typed API intent.</p></div>
-                <div class="card accent-amber"><b>MIT</b><p>The source repository is public and open source.</p></div>
-              </div>
-              <div class="note">Evidence source: public README, pyproject metadata, module tree, and architecture notes. This visual avoids local secrets, env values, and raw private source dumps.</div>
-            </article>
+          <article class="panel" id="audit" data-element-id="audit-module">
+            <h3>Audit and trust boundary</h3>
+            <p>The audit path is not a side note. It records stage-level counts, token footprints, and keep/drop/compress decisions so a developer can debug why the final prompt looks the way it does.</p>
+            <div class="mini-grid">
+              <div class="mini accent-blue"><b>Trace</b><p>Stage-by-stage movement of blocks and token counts.</p></div>
+              <div class="mini accent-green"><b>Decision reason</b><p>Why blocks were kept, dropped, or compressed.</p></div>
+              <div class="mini accent-rose"><b>Privacy note</b><p>Audit stores should avoid sensitive retrieved content in private apps.</p></div>
+              <div class="mini accent-amber"><b>Read next</b><p>`stage_trace.py`, `audit_report.py`, dashboard store.</p></div>
+            </div>
+          </article>
 
-            <article class="file-view" id="src" data-element-id="file-src">
-              <span class="path">src / tokengate</span>
-              <h2>Package boundary</h2>
-              <p>The package exposes a compact public API while keeping ranking, selection, deduplication, budgeting, audit, dashboard, and model integrations in separate modules.</p>
-              <div class="cards">
-                <div class="card accent-blue"><b>Public entrypoint</b><p>`__init__.py` exports TokenGate, TokenBlock, OptimizerConfig, result models, token counters, and error types.</p></div>
-                <div class="card accent-green"><b>Stage separation</b><p>Each pipeline concern has its own folder, making the architecture readable from the tree.</p></div>
-                <div class="card accent-rose"><b>Secret-safe read</b><p>No credential values are needed to explain the package architecture.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="core" data-element-id="file-core">
-              <span class="path">src/tokengate/core</span>
-              <h2>Core contract layer</h2>
-              <p>Core owns the main optimizer object, configuration, token block model, and result/audit data structures. Other folders plug into this contract.</p>
-              <div class="facts">
-                <div class="fact"><b>optimizer.py</b><p>Coordinates the stages and returns an OptimizationResult.</p></div>
-                <div class="fact"><b>config.py</b><p>Defines strategy presets, budgets, thresholds, source priorities, and optional capabilities.</p></div>
-                <div class="fact"><b>block.py</b><p>Represents candidate chunks with scores, metadata, and token counts.</p></div>
-                <div class="fact"><b>result.py</b><p>Captures included, compressed, dropped blocks and audit records.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="optimizer" data-element-id="file-optimizer">
-              <span class="path">src/tokengate/core/optimizer.py</span>
-              <h2>Pipeline coordinator</h2>
-              <p>This is the file a reader should inspect first when they want the end-to-end flow. The visual summary treats it as the orchestration layer that calls ranking, deduplication, selection, budgeting, prompt building, and audit generation.</p>
-              <div class="cards">
-                <div class="card accent-blue"><b>Input</b><p>Query plus candidate TokenBlock objects.</p></div>
-                <div class="card accent-green"><b>Process</b><p>Run staged context optimization under a selected strategy.</p></div>
-                <div class="card accent-violet"><b>Output</b><p>Final prompt, kept blocks, dropped blocks, compressed blocks, audit trail.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="config" data-element-id="file-config">
-              <span class="path">src/tokengate/core/config.py</span>
-              <h2>Configuration and strategy surface</h2>
-              <p>Config makes TokenGate tunable without changing application code. README examples show a `tokengate.toml` path and environment-based config loading.</p>
-              <div class="facts">
-                <div class="fact"><b>Strategies</b><p>speed, balanced, quality, and max_compression represent different tradeoffs.</p></div>
-                <div class="fact"><b>Budgets</b><p>Prompt budget and headroom protect downstream context limits.</p></div>
-                <div class="fact"><b>Thresholds</b><p>Relevance floor, dedup thresholds, MMR lambda, and source priorities control selection.</p></div>
-                <div class="fact"><b>Validation</b><p>README says unknown config keys raise, so typos should not silently no-op.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="result" data-element-id="file-result">
-              <span class="path">src/tokengate/core/result.py</span>
-              <h2>Result and audit data models</h2>
-              <p>The result model is the product promise: not just a shorter prompt, but a trace of what changed and why.</p>
-              <div class="cards">
-                <div class="card accent-green"><b>Included</b><p>Blocks that survived to the final prompt.</p></div>
-                <div class="card accent-amber"><b>Compressed</b><p>Blocks shortened by an opt-in compression path.</p></div>
-                <div class="card accent-rose"><b>Dropped</b><p>Blocks rejected by duplicate, score, diversity, or budget logic.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="ranking" data-element-id="file-ranking">
-              <span class="path">src/tokengate/ranking</span>
-              <h2>Ranking stage</h2>
-              <p>Ranking combines multiple signals before final selection. The module names show semantic scoring, keyword ranking, hybrid ranking, normalization, reranking, and auxiliary signals.</p>
-              <div class="summary-grid">
-                <div class="card accent-blue"><b>semantic</b><p>Embedding similarity from model-backed vectors.</p></div>
-                <div class="card accent-green"><b>keyword</b><p>Lexical matching for direct signal recovery.</p></div>
-                <div class="card accent-violet"><b>reranker</b><p>Cross-encoder scoring for query/chunk pairs.</p></div>
-                <div class="card accent-amber"><b>signals</b><p>Recency, token efficiency, and source priority.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="hybrid" data-element-id="file-hybrid">
-              <span class="path">src/tokengate/ranking/hybrid_ranker.py</span>
-              <h2>Hybrid ranker</h2>
-              <p>Combines ranking signals into a unified score before later stages apply adaptive cutoff, deduplication, diversity, and budget constraints.</p>
-              <div class="note">Inferred from module names and README pipeline. Exact scoring implementation should be inspected in the source when making code changes.</div>
-            </article>
-
-            <article class="file-view" id="reranker" data-element-id="file-reranker">
-              <span class="path">src/tokengate/ranking/reranker_stage.py</span>
-              <h2>Cross-encoder reranking stage</h2>
-              <p>The README describes BGE reranking after initial hybrid ranking. This file is the likely stage boundary for applying reranker relevance scores.</p>
-              <div class="cards">
-                <div class="card accent-blue"><b>Purpose</b><p>Improve ranking quality using query/chunk pair scoring.</p></div>
-                <div class="card accent-amber"><b>Tradeoff</b><p>Better relevance costs more runtime than pure keyword or embedding scoring.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="selection" data-element-id="file-selection">
-              <span class="path">src/tokengate/selection</span>
-              <h2>Selection stage</h2>
-              <p>Selection narrows high-ranked candidates using per-query adaptive cutoff and MMR diversity. This is where the system stops treating all top-N chunks as equally useful.</p>
-              <div class="facts">
-                <div class="fact"><b>adaptive_cutoff.py</b><p>Finds the relevance cliff for the current query.</p></div>
-                <div class="fact"><b>mmr.py</b><p>Balances relevance and diversity in the final candidate set.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="dedup" data-element-id="file-dedup">
-              <span class="path">src/tokengate/deduplication</span>
-              <h2>Deduplication stage</h2>
-              <p>TokenGate's main savings story comes from selecting and deduplicating context, not blindly compressing everything.</p>
-              <div class="cards">
-                <div class="card accent-green"><b>exact.py</b><p>Removes byte-identical content.</p></div>
-                <div class="card accent-blue"><b>near_duplicate.py</b><p>Handles close textual overlap.</p></div>
-                <div class="card accent-violet"><b>semantic.py</b><p>Collapses near-paraphrases with vector similarity.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="budgeting" data-element-id="file-budgeting">
-              <span class="path">src/tokengate/budgeting</span>
-              <h2>Budgeting stage</h2>
-              <p>The budgeter decides which selected blocks fit the prompt budget. The README frames this as value-per-token fitting with token counters that can be heuristic or model-aware.</p>
-              <div class="facts">
-                <div class="fact"><b>budgeter.py</b><p>Fits required and optional blocks under the context budget.</p></div>
-                <div class="fact"><b>token_counter.py</b><p>Supports dependency-free estimation and optional exact counting.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="compression" data-element-id="file-compression">
-              <span class="path">src/tokengate/compression</span>
-              <h2>Compression is present, but intentionally off by default</h2>
-              <p>The README makes a strong product decision: aggressive compression can preserve fact strings while breaking answerability, so default strategies rely on selection and deduplication instead.</p>
-              <div class="cards">
-                <div class="card accent-green"><b>extractive.py</b><p>Conservative compression path.</p></div>
-                <div class="card accent-rose"><b>llmlingua_compressor.py</b><p>Optional learned compression backend.</p></div>
-                <div class="card accent-amber"><b>structured_schema.py</b><p>Schema support for structured compression outputs.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="audit" data-element-id="file-audit">
-              <span class="path">src/tokengate/audit</span>
-              <h2>Audit trail</h2>
-              <p>Audit is the trust layer. It explains each stage's block and token counts, and every per-block keep/drop/compress decision.</p>
-              <div class="cards">
-                <div class="card accent-blue"><b>stage_trace.py</b><p>Records per-stage flow and token footprints.</p></div>
-                <div class="card accent-green"><b>audit_report.py</b><p>Builds the final report surfaced to developers.</p></div>
-                <div class="card accent-violet"><b>dashboard sync</b><p>Audit outputs become inspectable in the optional dashboard.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="dashboard" data-element-id="file-dashboard">
-              <span class="path">src/tokengate/dashboard</span>
-              <h2>Optional local dashboard</h2>
-              <p>The dashboard extra gives developers a local web UI for audit history, token savings, per-stage drop-off, and per-block decisions.</p>
-              <div class="facts">
-                <div class="fact"><b>server.py</b><p>FastAPI app boundary.</p></div>
-                <div class="fact"><b>audit_store.py</b><p>SQLite-backed audit persistence.</p></div>
-                <div class="fact"><b>static/index.html</b><p>Dashboard front-end shipped inside the package.</p></div>
-                <div class="fact"><b>Optional dependency</b><p>Installed through the `[dashboard]` extra.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="tests" data-element-id="file-tests">
-              <span class="path">tests</span>
-              <h2>Regression surface</h2>
-              <p>The tests mirror the architecture: optimizer, ranking, deduplication, MMR, budgeter, config, dashboard, models, recipes, and prompt builder each have targeted coverage.</p>
-              <div class="summary-grid">
-                <div class="card accent-blue"><b>Optimizer</b><p>End-to-end behavior and stage integration.</p></div>
-                <div class="card accent-green"><b>Config</b><p>Strategy presets, TOML loading, and validation.</p></div>
-                <div class="card accent-violet"><b>Ranking/selection</b><p>Scoring, reranking, cutoff, MMR, dedup.</p></div>
-                <div class="card accent-amber"><b>Dashboard</b><p>Audit storage and UI-serving behavior.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="pyproject" data-element-id="file-pyproject">
-              <span class="path">pyproject.toml</span>
-              <h2>Package metadata</h2>
-              <p>The metadata declares TokenGate as a production/stable typed Python 3.12 package for LLM context optimization.</p>
-              <div class="facts">
-                <div class="fact"><b>Core dependencies</b><p>numpy, torch, sentence-transformers.</p></div>
-                <div class="fact"><b>Optional extras</b><p>tiktoken, FlagEmbedding, llmlingua compression, dashboard.</p></div>
-                <div class="fact"><b>Dev checks</b><p>pytest, ruff, and strict mypy.</p></div>
-                <div class="fact"><b>Distribution</b><p>MIT license, typed classifier, GitHub URLs.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view" id="readme" data-element-id="file-readme">
-              <span class="path">README.md</span>
-              <h2>Product narrative</h2>
-              <p>The README explains the problem, benchmark caveats, quickstart, pipeline, strategies, configuration, model adapters, dashboard, requirements, and development commands.</p>
-              <div class="cards">
-                <div class="card accent-green"><b>Strong positioning</b><p>Token savings with auditability, not lossy summary generation.</p></div>
-                <div class="card accent-amber"><b>Honest caveat</b><p>Benchmark scope and compression failure mode are explicitly disclosed.</p></div>
-                <div class="card accent-blue"><b>Developer-ready</b><p>Install, quickstart, config, model adapter, dashboard, and development flows are documented.</p></div>
-              </div>
-            </article>
-
-            <article class="file-view architecture-view" id="pipeline" data-element-id="pipeline-map">
-              <div class="architecture-head">
-                <div>
-                  <span class="path">Architecture / pipeline.map</span>
-                  <h2>TokenGate pipeline map</h2>
-                </div>
-                <p>Connectors stop at node boundaries and labels sit outside arrows. The audit branch is separate from the prompt branch because both are first-class outputs.</p>
-              </div>
-              <div class="map large" role="img" aria-label="TokenGate pipeline architecture">
-                <svg viewBox="0 0 1120 620" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#3b82f6"></path></marker>
-                    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#22c55e"></path></marker>
-                    <marker id="arrow-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#f59e0b"></path></marker>
-                    <marker id="arrow-violet" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8b5cf6"></path></marker>
-                    <marker id="arrow-rose" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#f43f5e"></path></marker>
-                  </defs>
-                  <rect class="node n-blue" x="60" y="110" width="160" height="82"></rect>
-                  <text class="svg-title" x="88" y="144">Query</text><text class="svg-sub" x="88" y="168">user task</text>
-                  <rect class="node n-blue" x="60" y="285" width="160" height="82"></rect>
-                  <text class="svg-title" x="88" y="319">Candidate blocks</text><text class="svg-sub" x="88" y="343">retrieved chunks</text>
-                  <rect class="node n-green" x="290" y="80" width="175" height="96"></rect>
-                  <text class="svg-title" x="318" y="116">Rank</text><text class="svg-sub" x="318" y="140">semantic + keyword</text><text class="svg-sub" x="318" y="159">+ source signals</text>
-                  <rect class="node n-violet" x="535" y="80" width="175" height="96"></rect>
-                  <text class="svg-title" x="563" y="116">Rerank</text><text class="svg-sub" x="563" y="140">cross-encoder</text>
-                  <rect class="node n-green" x="290" y="285" width="175" height="96"></rect>
-                  <text class="svg-title" x="318" y="321">Deduplicate</text><text class="svg-sub" x="318" y="345">exact + near + semantic</text>
-                  <rect class="node n-violet" x="535" y="285" width="175" height="96"></rect>
-                  <text class="svg-title" x="563" y="321">Select</text><text class="svg-sub" x="563" y="345">adaptive cutoff + MMR</text>
-                  <rect class="node n-amber" x="780" y="185" width="175" height="96"></rect>
-                  <text class="svg-title" x="808" y="221">Budget</text><text class="svg-sub" x="808" y="245">value per token</text>
-                  <rect class="node n-rose" x="780" y="390" width="175" height="82"></rect>
-                  <text class="svg-title" x="808" y="424">Compression</text><text class="svg-sub" x="808" y="448">opt-in, off by default</text>
-                  <rect class="node n-green" x="1000" y="170" width="90" height="70"></rect>
-                  <text class="svg-title" x="1018" y="202">Prompt</text><text class="svg-sub" x="1018" y="223">to LLM</text>
-                  <rect class="node n-blue" x="1000" y="330" width="90" height="70"></rect>
-                  <text class="svg-title" x="1022" y="362">Audit</text><text class="svg-sub" x="1015" y="383">why kept</text>
-                  <path class="flow green" d="M220 151 H290"></path>
-                  <path class="flow blue" d="M220 326 H290"></path>
-                  <path class="flow violet" d="M465 128 H535"></path>
-                  <path class="flow green" d="M465 333 H535"></path>
-                  <path class="flow violet" d="M710 128 H742 V233 H780"></path>
-                  <path class="flow green" d="M710 333 H742 V233 H780"></path>
-                  <path class="flow rose" d="M868 390 V281"></path>
-                  <path class="flow green" d="M955 210 H1000"></path>
-                  <path class="flow blue" d="M955 248 H976 V365 H1000"></path>
-                  <rect class="label" x="820" y="308" width="104" height="22"></rect>
-                  <text class="label-text" x="832" y="323">decision trace</text>
-                </svg>
-              </div>
-            </article>
-
-            <article class="file-view" id="risks" data-element-id="file-risks">
-              <span class="path">review-targets.md</span>
-              <h2>Review targets</h2>
-              <p>These are the places a reviewer should inspect first before depending on TokenGate in a production RAG app.</p>
-              <div class="cards">
-                <div class="card accent-blue"><b>Model dependency weight</b><p>BGE embedding/reranking quality comes with model download size, runtime cost, and CPU/GPU variability.</p></div>
-                <div class="card accent-rose"><b>Compression trust</b><p>The README correctly warns that compression can preserve facts while breaking answerability.</p></div>
-                <div class="card accent-amber"><b>Benchmark scope</b><p>Benchmark claims are useful but source-labeled as representative, not universal SOTA.</p></div>
-                <div class="card accent-green"><b>Audit persistence</b><p>Audit data should avoid storing sensitive retrieved content when used in private applications.</p></div>
-                <div class="card accent-violet"><b>Configuration drift</b><p>Strategies and thresholds should be versioned for reproducible evaluations.</p></div>
-                <div class="card accent-blue"><b>Integration contract</b><p>Downstream apps should treat final_prompt and audit as separate outputs with different privacy needs.</p></div>
-              </div>
-            </article>
-          </main>
-
-          <footer class="statusbar">
-            <span>main / public source / CSS-only visual</span>
-            <span>No JS | inline CSS/SVG | no secrets | source-backed summaries</span>
-          </footer>
+          <article class="panel" id="tests" data-element-id="test-surface">
+            <h3>Verification surface</h3>
+            <p>The tests mirror the architecture: optimizer, ranking, deduplication, MMR, budgeter, config, dashboard, models, recipes, and prompt builder each have targeted coverage.</p>
+            <details>
+              <summary>Review targets for production use</summary>
+              <ul>
+                <li>Model dependency weight: embedding and reranking quality come with model download size, runtime cost, and CPU/GPU variability.</li>
+                <li>Compression trust: README warns that compression can preserve facts while breaking answerability, so default strategies rely on selection/dedup first.</li>
+                <li>Benchmark scope: treat reported savings as representative until validated on the target app's retrieval corpus.</li>
+                <li>Audit persistence: final prompt and audit report have different privacy needs.</li>
+                <li>Config drift: thresholds and strategies should be tracked with evaluation runs.</li>
+              </ul>
+            </details>
+          </article>
         </div>
       </div>
-    </div>
+    </section>
+
     <footer class="attribution">
       <span>Generated with <a href="https://flowthis.app">FlowThis</a> Skill</span>
       <span>Source: <a href="https://github.com/Mario-Vishal/tokengate">github.com/Mario-Vishal/tokengate</a></span>
