@@ -8,73 +8,43 @@ the source, choose the right structure, build a readable mini-site, keep
 diagrams precise, label evidence, and ship one self-contained HTML file with no
 JavaScript or external assets.
 
-<p align="center">
-  <img src="assets/flowthis-visual-skill-overview.png" alt="FlowThis Visual Skill architecture example overview" width="100%" />
-</p>
-
-## Why Use This
-
-Most AI-generated visuals fail in the same ways: overloaded cards, generic
-themes, vague structure, arrows crossing text, missing provenance, and no
-reader path. This skill fixes that by making every visual follow five durable
-rules:
+## What Makes It Different
 
 - **Visual brief first:** source type, audience, confidence, reader job, and
   what to inspect first.
-- **Source-first identity:** a repo can feel like an IDE, a paper can feel like
-  an annotated brief, and a product page can feel editorial.
-- **Reusable recipes:** explorer-detail panes, focus maps, evidence rails,
-  decision ledgers, risk boards, figure digests, and read-next footers.
+- **Source-first identity:** a repository can feel like an IDE, a paper can feel
+  like an annotated brief, and a product page can feel editorial.
+- **Interactive without JavaScript:** anchors, `:target`, `details`, and CSS
+  states create navigable documents that still work in strict sandboxes.
 - **Boundary-safe diagrams:** arrows stop at node edges, avoid labels, and keep
   complex systems readable.
-- **Share polish:** title, provenance, primary visual, details, caveats, and
-  read-next sections are present even when the prompt is vague.
+- **Evidence-aware summaries:** source-backed facts and inferred summaries are
+  visually separated.
 
 ## Example Gallery
 
-### Repository Architecture: TokenGate
+### TokenGate Repository Architecture
 
 Generated from the public
 [`Mario-Vishal/tokengate`](https://github.com/Mario-Vishal/tokengate) repository
-using only the FlowThis skill rules. It uses an IDE-style tree and a side detail
-pane instead of dumping code. No secrets, env values, or raw private source are
-embedded.
+using the FlowThis skill. The visual is structured like a Mac/VS Code-style IDE:
+left activity bar, Explorer tree, file tabs, and a right editor pane that changes
+when you select a folder or file.
 
-<p align="center">
-  <a href="examples/tokengate-repo-architecture.html">
-    <img src="assets/tokengate-repo-architecture.png" alt="TokenGate repository architecture visual" width="100%" />
-  </a>
-</p>
+No secrets, env values, or raw private source are embedded.
 
-Open: [`examples/tokengate-repo-architecture.html`](examples/tokengate-repo-architecture.html)
+Open the example:
+[`examples/tokengate-repo-architecture.html`](examples/tokengate-repo-architecture.html)
 
-### Research Paper Brief: Qwen3 Technical Report
+### Qwen3 Technical Report Brief
 
 Generated from the open arXiv paper
 [`Qwen3 Technical Report`](https://arxiv.org/abs/2505.09388). The visual follows
 the paper route: identity, abstract rewrite, contribution cards, method map,
 evidence matrix, limitations, and read-next notes.
 
-<p align="center">
-  <a href="examples/qwen3-paper-brief.html">
-    <img src="assets/qwen3-paper-brief.png" alt="Qwen3 technical report visual brief" width="100%" />
-  </a>
-</p>
-
-Open: [`examples/qwen3-paper-brief.html`](examples/qwen3-paper-brief.html)
-
-### FlowThis Architecture Workspace
-
-The original repo/system example used to demonstrate the skill's architecture
-workspace pattern.
-
-<p align="center">
-  <a href="examples/repo-architecture.html">
-    <img src="assets/flowthis-visual-skill-system-map.png" alt="FlowThis architecture system map visual" width="100%" />
-  </a>
-</p>
-
-Open: [`examples/repo-architecture.html`](examples/repo-architecture.html)
+Open the example:
+[`examples/qwen3-paper-brief.html`](examples/qwen3-paper-brief.html)
 
 ## Install In Claude Code
 
@@ -119,7 +89,7 @@ When FlowThis MCP tools are connected, the skill can save directly through
 `create_visualization`. Without MCP, agents can still write a local
 `flowthis-visual.html` file that can be uploaded manually.
 
-## What The Skill Produces
+## Output Rules
 
 Every output should be:
 
@@ -158,11 +128,8 @@ Every output should be:
       references/
         visualization-system.md
   examples/
-    repo-architecture.html
     tokengate-repo-architecture.html
     qwen3-paper-brief.html
-  assets/
-    *.png
   docs/
     design-principles.md
     contributing.md

@@ -48,6 +48,10 @@ The HTML must be:
   the source is FlowThis or the user asks for it.
 - Structured with stable section ids or `data-element-id` attributes where
   comments would naturally attach.
+- For repository/codebase visuals, use a literal IDE-style composition when the
+  user does not specify otherwise: Mac/VS Code-like window chrome, left Explorer
+  tree, selected file/folder state, tabs, and a right editor/detail pane that
+  changes with CSS-only anchors.
 
 Aim for something genuinely worth sharing, not a placeholder.
 
@@ -79,4 +83,3 @@ If FlowThis MCP tools are not available:
 2. Tell the user they can preview it locally and upload it manually to FlowThis.
 
 Do not dump the full HTML into chat unless asked.
-
