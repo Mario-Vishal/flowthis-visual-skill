@@ -24,3 +24,8 @@
   editor panes for folders/files.
 - Removed generated screenshot assets from the public repo; examples are meant
   to be opened as live self-contained HTML.
+- Added lightweight bottom attribution rules to the skill and examples:
+  `Generated with FlowThis Skill` plus a source link.
+- Updated the repository visualization route to require a top summary, an
+  explicit `Architecture` Explorer folder, and a large right-pane architecture
+  diagram when selected.

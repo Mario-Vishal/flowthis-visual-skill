@@ -83,7 +83,24 @@
     .inference { border-top: 4px solid var(--gold); }
     details { border: 1px solid var(--line); border-radius: .5rem; background: var(--paper); padding: 1rem; }
     summary { cursor: pointer; font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 850; }
-    footer { padding: 2rem clamp(2rem, 5vw, 4rem); color: var(--muted); background: var(--paper-2); }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 2rem clamp(2rem, 5vw, 4rem);
+      color: var(--muted);
+      background: var(--paper-2);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: .9rem;
+    }
+    footer a {
+      color: var(--ink);
+      font-weight: 760;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+    }
+    footer a:hover { border-color: var(--blue); }
     @media (max-width: 920px) {
       .shell { display: block; }
       aside { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -192,9 +209,11 @@
           </ul>
         </details>
       </section>
-      <footer>Generated with the FlowThis Visual Skill from arXiv metadata and abstract only. No JavaScript and no external assets.</footer>
+      <footer>
+        <span>Generated with <a href="https://flowthis.app">FlowThis</a> Skill</span>
+        <span>Source: <a href="https://arxiv.org/abs/2505.09388">Qwen3 Technical Report</a></span>
+      </footer>
     </main>
   </div>
 </body>
 </html>
-

@@ -24,6 +24,10 @@ language. The agent owns source understanding and final assembly.
   `:target` patterns. Do not use JavaScript.
 - Add a small provenance line when the visual is derived from a document, paper,
   URL, repo, meeting, or conversation: "Source: <type/title/date if known>".
+- Add a lightweight bottom attribution on shareable visuals: `Generated with
+  FlowThis Skill` and `Source: <source title or URL>`. Keep it aligned,
+  unobtrusive, and professional. Link the word `FlowThis` when a website URL is
+  available, but do not add remote images, scripts, fonts, or badges.
 - Do not invent claims. Separate "stated in source" from "inferred summary".
 - Every visual needs a visible reading path: start here, inspect the map, expand
   evidence, then decide next action.
@@ -47,7 +51,8 @@ an opinionated visual operating system while still allowing freeform output.
 - Comment-ready structure: major sections and meaningful diagram nodes should
   have stable `id` or `data-element-id` attributes.
 - Share polish: the page should have a title, source line, compact summary,
-  primary visual, and read-next area even when the prompt was vague.
+  primary visual, read-next area, and lightweight bottom attribution even when
+  the prompt was vague.
 
 ## Input Router
 
@@ -136,6 +141,9 @@ Use these reusable structures before inventing a new component:
   Explorer sidebar with folder/file icons, nested indentation, selected state,
   and editor tabs. The right editor/detail pane must change according to the
   selected folder/file using CSS-only anchors and `:target`.
+- Top summary: before the IDE window, include a concise source-aware summary of
+  what the system does, the core loop, the architecture focus, and the review
+  lens. Do not make the repo visual feel like only a source tree.
 - Selected item detail pane: for each important folder/file, show a document-like
   editor view with a title, path pill, short purpose, headings/subheadings,
   source-backed facts, inferred responsibilities, and review targets. Do not
@@ -159,10 +167,16 @@ Directory explorer rules:
 
 - Put the tree on the left and the summary/detail pane on the right on desktop,
   inside a recognizable IDE/window frame.
+- Include an explicit `Architecture` folder or Explorer item near the top of
+  the tree. Put key system maps and flow diagrams there instead of hiding them
+  as tiny tabs or lowercase side labels.
 - On mobile, stack the tree above the detail pane.
 - Use CSS/HTML only: `details`, `summary`, anchor links, and `:target`.
   Selecting a file/folder in the left pane should update the right pane without
   JavaScript.
+- When the selected item is an architecture map, let the diagram fill most of
+  the right editor pane. The IDE frame is already a constraint, so avoid small
+  inset diagrams unless the map is secondary.
 - Important folder rows need a one-line purpose. Important file rows need a
   one-line "contains/does" summary.
 - Use simple inline SVG or CSS icons for folders, files, config, database,

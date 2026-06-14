@@ -28,8 +28,9 @@ JavaScript or external assets.
 Generated from the public
 [`Mario-Vishal/tokengate`](https://github.com/Mario-Vishal/tokengate) repository
 using the FlowThis skill. The visual is structured like a Mac/VS Code-style IDE:
-left activity bar, Explorer tree, file tabs, and a right editor pane that changes
-when you select a folder or file.
+top summary, left activity bar, Explorer tree with an explicit Architecture
+folder, file tabs, and a right editor pane that changes when you select a folder
+or file.
 
 No secrets, env values, or raw private source are embedded.
 
@@ -100,6 +101,8 @@ Every output should be:
 - responsive at mobile and desktop widths
 - source-specific in visual identity
 - explicit about provenance and uncertainty
+- lightly attributed at the bottom with `Generated with FlowThis Skill` and a
+  source link
 - structured with stable section ids where comments should attach
 
 ## Source Types
@@ -107,7 +110,7 @@ Every output should be:
 | Source | Default Visual Pattern |
 | --- | --- |
 | Research paper / PDF | Paper brief with contributions, method map, experiments, limits, read-next |
-| Repository / codebase | IDE-style explorer, architecture map, flows, key contracts, risks |
+| Repository / codebase | IDE-style explorer, top summary, Architecture folder, large architecture map, flows, key contracts, risks |
 | Software architecture | System boundaries, services, stores, request paths, failure points |
 | Conversation / debug log | Timeline, decisions, blockers, current state, next actions |
 | Product / advertisement | Offer page, audience, pain, benefits, proof, CTA |
@@ -149,4 +152,3 @@ See [`docs/contributing.md`](docs/contributing.md).
 ## License
 
 MIT. See [`LICENSE`](LICENSE).
-

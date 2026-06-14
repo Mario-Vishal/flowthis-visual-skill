@@ -107,6 +107,31 @@
       font-size: 1.08rem;
       line-height: 1.6;
     }
+    .summary-band {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: .75rem;
+      margin-top: .25rem;
+      max-width: 1220px;
+    }
+    .summary-band article {
+      border: 1px solid var(--line);
+      border-radius: .55rem;
+      background: rgba(255,255,255,.7);
+      padding: .85rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      .summary-band article { background: rgba(15,23,42,.72); }
+    }
+    .summary-band b {
+      display: block;
+      margin-bottom: .28rem;
+      color: var(--ink);
+    }
+    .summary-band p {
+      margin: 0;
+      font-size: .9rem;
+    }
     .ide {
       min-height: 790px;
       border: 1px solid var(--line);
@@ -359,6 +384,30 @@
       overflow: auto;
       background: rgba(255,255,255,.66);
     }
+    .file-view.architecture-view {
+      padding: clamp(.85rem, 1.4vw, 1.25rem);
+    }
+    .architecture-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: .7rem;
+    }
+    .architecture-head p {
+      max-width: 650px;
+      margin: 0;
+    }
+    .map.large {
+      height: min(70vh, 660px);
+      min-height: 560px;
+      margin-top: .5rem;
+    }
+    .map.large svg {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+    }
     @media (prefers-color-scheme: dark) {
       .map { background: rgba(2,6,23,.28); }
     }
@@ -402,6 +451,25 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    .attribution {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-top: .85rem;
+      color: var(--muted);
+      font-size: .86rem;
+      padding: 0 .25rem;
+    }
+    .attribution a {
+      color: var(--ink);
+      font-weight: 760;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .attribution a:hover {
+      border-color: var(--blue);
+    }
     .note {
       margin-top: 1rem;
       border-left: 4px solid var(--amber);
@@ -416,7 +484,8 @@
       .titlebar { grid-template-columns: 90px 1fr; }
       .status { display: none; }
       .workbench { grid-template-columns: 2.8rem minmax(12rem, 15rem) minmax(0, 1fr); }
-      .summary-grid, .cards, .facts { grid-template-columns: 1fr; }
+      .summary-grid, .cards, .facts, .summary-band { grid-template-columns: 1fr; }
+      .map.large { height: 560px; }
     }
     @media (max-width: 720px) {
       .hero { padding: 1rem; }
@@ -425,6 +494,8 @@
       .explorer { max-height: 18rem; overflow: auto; border-bottom: 1px solid rgba(255,255,255,.08); }
       .editor-shell { min-height: 720px; }
       .file-view { padding: 1rem; }
+      .architecture-head { display: block; }
+      .attribution { display: grid; padding: 0 1rem 1rem; }
     }
   </style>
 </head>
@@ -437,8 +508,14 @@
         <span class="chip"><strong>Secret posture</strong> no env values, no raw source dumps</span>
         <span class="chip"><strong>Reader job</strong> understand modules and pipeline</span>
       </div>
-      <h1>TokenGate, viewed like an IDE.</h1>
-      <p class="lead">Click folders and files in the Explorer. The editor pane changes to a focused summary with headings, evidence, architecture notes, and review targets for that selected item.</p>
+      <h1>TokenGate context optimization, mapped for implementation review.</h1>
+      <p class="lead">Start with the summary, then select items in the Explorer. The editor pane changes to focused notes, evidence, architecture diagrams, and review targets for each selected area.</p>
+      <div class="summary-band" aria-label="Repository summary">
+        <article><b>What it does</b><p>Builds a smaller, auditable prompt from retrieved context instead of stuffing every top-ranked chunk into the LLM window.</p></article>
+        <article><b>Core loop</b><p>Rank, rerank, deduplicate, select, budget, optionally compress, then emit prompt plus audit trail.</p></article>
+        <article><b>Architecture focus</b><p>The Architecture folder in the Explorer opens the main pipeline diagram at full editor scale.</p></article>
+        <article><b>Review lens</b><p>Inspect model dependency cost, compression trust, benchmark scope, audit privacy, and config drift.</p></article>
+      </div>
     </section>
 
     <div class="ide" data-element-id="tokengate-ide-window">
@@ -450,7 +527,7 @@
       <div class="workbench">
         <nav class="activity" aria-label="Activity bar">
           <a class="active" href="#root" title="Explorer">EX</a>
-          <a href="#pipeline" title="Pipeline">PL</a>
+          <a href="#pipeline" title="Architecture">AR</a>
           <a href="#audit" title="Audit">AU</a>
           <a href="#risks" title="Risks">RI</a>
         </nav>
@@ -459,6 +536,9 @@
           <div class="explorer-head"><span>Explorer</span><span>...</span></div>
           <div class="tree">
             <a class="row root selected" href="#root"><span class="icon folder">▾</span><span>tokengate</span><span class="badge">repo</span></a>
+            <a class="row indent-1" href="#pipeline"><span class="icon folder">▾</span><span>Architecture</span><span></span></a>
+            <a class="row indent-2" href="#pipeline"><span class="icon md">MAP</span><span>pipeline.map</span><span></span></a>
+            <a class="row indent-2" href="#risks"><span class="icon md">MD</span><span>review-targets.md</span><span></span></a>
             <a class="row indent-1" href="#src"><span class="icon folder">▾</span><span>src/tokengate</span><span></span></a>
             <a class="row indent-2" href="#core"><span class="icon folder">▾</span><span>core</span><span></span></a>
             <a class="row indent-3" href="#optimizer"><span class="icon py">PY</span><span>optimizer.py</span><span></span></a>
@@ -476,14 +556,13 @@
             <a class="row indent-1" href="#tests"><span class="icon test">TS</span><span>tests</span><span>236</span></a>
             <a class="row indent-1" href="#pyproject"><span class="icon toml">TM</span><span>pyproject.toml</span><span></span></a>
             <a class="row indent-1" href="#readme"><span class="icon md">MD</span><span>README.md</span><span></span></a>
-            <a class="row indent-1" href="#risks"><span class="icon md">!</span><span>review-targets.md</span><span></span></a>
           </div>
         </aside>
 
         <div class="editor-shell">
           <div class="tabs" aria-label="Open tabs">
             <a class="tab active" href="#root">tokengate</a>
-            <a class="tab" href="#pipeline">pipeline.map</a>
+            <a class="tab" href="#pipeline">Architecture / pipeline.map</a>
             <a class="tab" href="#optimizer">optimizer.py</a>
             <a class="tab" href="#audit">audit_report.py</a>
             <a class="tab" href="#risks">risks.md</a>
@@ -689,11 +768,15 @@
               </div>
             </article>
 
-            <article class="file-view" id="pipeline" data-element-id="pipeline-map">
-              <span class="path">architecture / pipeline.map</span>
-              <h2>TokenGate pipeline map</h2>
-              <p>Connectors stop at node boundaries and labels sit outside arrows. The audit branch is separate from the prompt branch because both are first-class outputs.</p>
-              <div class="map" role="img" aria-label="TokenGate pipeline architecture">
+            <article class="file-view architecture-view" id="pipeline" data-element-id="pipeline-map">
+              <div class="architecture-head">
+                <div>
+                  <span class="path">Architecture / pipeline.map</span>
+                  <h2>TokenGate pipeline map</h2>
+                </div>
+                <p>Connectors stop at node boundaries and labels sit outside arrows. The audit branch is separate from the prompt branch because both are first-class outputs.</p>
+              </div>
+              <div class="map large" role="img" aria-label="TokenGate pipeline architecture">
                 <svg viewBox="0 0 1120 620" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#3b82f6"></path></marker>
@@ -753,12 +836,16 @@
           </main>
 
           <footer class="statusbar">
-            <span>main / public repo visual / generated with FlowThis Visual Skill</span>
+            <span>main / public source / CSS-only visual</span>
             <span>No JS | inline CSS/SVG | no secrets | source-backed summaries</span>
           </footer>
         </div>
       </div>
     </div>
+    <footer class="attribution">
+      <span>Generated with <a href="https://flowthis.app">FlowThis</a> Skill</span>
+      <span>Source: <a href="https://github.com/Mario-Vishal/tokengate">github.com/Mario-Vishal/tokengate</a></span>
+    </footer>
   </div>
 </body>
 </html>

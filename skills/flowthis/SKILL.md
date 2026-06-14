@@ -48,10 +48,17 @@ The HTML must be:
   the source is FlowThis or the user asks for it.
 - Structured with stable section ids or `data-element-id` attributes where
   comments would naturally attach.
+- Professionally attributed at the bottom with only the essentials:
+  `Generated with FlowThis Skill` and `Source: <source>`. Link the FlowThis
+  text when the site URL is known. Do not put long generation notes in the
+  attribution.
 - For repository/codebase visuals, use a literal IDE-style composition when the
   user does not specify otherwise: Mac/VS Code-like window chrome, left Explorer
   tree, selected file/folder state, tabs, and a right editor/detail pane that
-  changes with CSS-only anchors.
+  changes with CSS-only anchors. Include a concise top summary before the IDE.
+  Put architecture diagrams under a clearly named `Architecture` folder/item in
+  the Explorer, and make the primary architecture diagram fill most of the
+  right editor pane when selected.
 
 Aim for something genuinely worth sharing, not a placeholder.
 
