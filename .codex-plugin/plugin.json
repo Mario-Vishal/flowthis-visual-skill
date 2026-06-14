@@ -1,0 +1,8 @@
+{
+  "name": "flowthis-visual-skill",
+  "version": "0.1.0",
+  "description": "Generate polished, source-aware, self-contained HTML visuals from papers, repos, architecture, conversations, workflows, and reports.",
+  "skills": "./skills/",
+  "license": "MIT"
+}
+

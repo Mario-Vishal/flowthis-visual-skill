@@ -1,0 +1,9 @@
+interface:
+  display_name: "FlowThis Visual Skill"
+  short_description: "Turn source material into polished, shareable, self-contained HTML visuals."
+  brand_color: "#376BD8"
+  default_prompt: "Visualize this with FlowThis."
+
+policy:
+  allow_implicit_invocation: true
+
