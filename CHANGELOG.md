@@ -41,3 +41,5 @@
 - Polished the README into a public repository landing page with clearer
   positioning, install instructions, example links, output contract, source
   routes, and repository layout.
+- Added a local SVG product mark and GitHub README badge/icon treatment so the
+  public repo reads more like a production-quality project page.

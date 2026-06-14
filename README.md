@@ -1,14 +1,37 @@
-# FlowThis Visual Skill
+<p align="center">
+  <img src="assets/flowthis-visual-skill-mark.svg" width="96" alt="FlowThis Visual Skill mark">
+</p>
 
-An open Agent Skill for turning papers, repositories, architecture notes,
-conversations, workflows, and reports into polished, source-aware HTML visuals.
+<h1 align="center">FlowThis Visual Skill</h1>
+
+<p align="center">
+  An open Agent Skill for turning papers, repositories, architecture notes,
+  conversations, workflows, and reports into polished, source-aware HTML visuals.
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-111827?style=for-the-badge"></a>
+  <a href="skills/flowthis/SKILL.md"><img alt="Agent Skill" src="https://img.shields.io/badge/agent%20skill-FlowThis-2563EB?style=for-the-badge&logo=openai&logoColor=white"></a>
+  <a href="examples/tokengate-repo-architecture.html"><img alt="HTML visual examples" src="https://img.shields.io/badge/examples-HTML%20visuals-16A34A?style=for-the-badge&logo=html5&logoColor=white"></a>
+  <img alt="No JavaScript output" src="https://img.shields.io/badge/output-no%20JavaScript-D97706?style=for-the-badge&logo=javascript&logoColor=white">
+</p>
+
+<p align="center">
+  <a href="#quick-start">Quick Start</a>
+  | <a href="#examples">Examples</a>
+  | <a href="#capabilities">Capabilities</a>
+  | <a href="#output-contract">Output Contract</a>
+  | <a href="https://flowthis.app">FlowThis Cloud</a>
+</p>
+
+<p align="center">
+  <img src="assets/flowthis-visual-skill-demo.gif" alt="FlowThis Visual Skill demo">
+</p>
 
 FlowThis Visual Skill gives coding agents a visual operating system: classify
 the source, choose the right structure, build a readable mini-site, keep
 diagrams precise, label evidence, and ship one self-contained HTML file with no
 JavaScript or remote assets.
-
-![FlowThis Visual Skill demo](assets/flowthis-visual-skill-demo.gif)
 
 ## Why It Exists
 
@@ -20,21 +43,16 @@ default grammar for turning real context into reviewable visual documents.
 Use it when you want an agent to produce a shareable visual that feels designed,
 evidence-aware, and useful on the first pass.
 
-## What Makes It Different
+## Capabilities
 
-- **Visual brief first:** source type, audience, confidence, reader job, and
-  what to inspect first.
-- **Source-first identity:** a repo can become an IDE-style explorer, docs
-  workspace, directory mock, or wide architecture canvas; a paper can become an
-  annotated brief; a product page can become an editorial share page.
-- **Deep architecture by default:** repo visuals explain modules, contracts,
-  runtime paths, tests, risks, and exact files to inspect.
-- **Interactive without JavaScript:** anchors, `:target`, `details`, and CSS
-  states create navigable documents that still work in strict sandboxes.
-- **Crafted diagrams:** boundary-safe arrows, animated SVG flow paths, semantic
-  icons, grouped system boundaries, and large maps that use the available width.
-- **Evidence-aware summaries:** source-backed facts and inferred summaries are
-  visually separated so readers know what is known and what is interpretation.
+| Capability | What The Skill Enforces |
+| --- | --- |
+| <img src="https://img.shields.io/badge/brief-first-2563EB?style=flat-square" alt="Brief first"> | Source type, audience, confidence, reader job, and what to inspect first. |
+| <img src="https://img.shields.io/badge/identity-source%20aware-16A34A?style=flat-square" alt="Source-aware identity"> | Repos, papers, products, workflows, and reports get distinct structures instead of one generic theme. |
+| <img src="https://img.shields.io/badge/repos-deep%20architecture-7C3AED?style=flat-square" alt="Deep architecture"> | Codebase visuals explain modules, contracts, runtime paths, tests, risks, and exact files to inspect. |
+| <img src="https://img.shields.io/badge/interaction-no%20JS-D97706?style=flat-square" alt="No JavaScript"> | Anchors, `:target`, `details`, and CSS states create navigable documents that work in strict sandboxes. |
+| <img src="https://img.shields.io/badge/diagrams-boundary%20safe-DC2626?style=flat-square" alt="Boundary-safe diagrams"> | Arrows stop at node edges, flow direction is visible, icons identify component types, and maps use the full width. |
+| <img src="https://img.shields.io/badge/evidence-labeled-0891B2?style=flat-square" alt="Evidence labeled"> | Source-backed facts and inferred summaries are visually separated. |
 
 ## Examples
 
@@ -46,7 +64,7 @@ evidence-aware, and useful on the first pass.
 The examples are self-contained HTML files. No secrets, env values, raw private
 source, scripts, remote fonts, or external assets are embedded.
 
-## Install
+## Quick Start
 
 ### Claude Code
 
@@ -77,6 +95,17 @@ cp -R skills/flowthis/* ~/.agents/skills/flowthis/
 This repository also includes a Codex plugin manifest at
 [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json), so it can be packaged
 as an installable Codex plugin.
+
+## At A Glance
+
+| Item | Detail |
+| --- | --- |
+| Primary output | Self-contained HTML visual |
+| Runtime requirement | None for generated files |
+| Interaction model | CSS and document anchors only |
+| Best sources | Repositories, papers, architecture notes, conversations, workflows, reports |
+| Hosted workflow | Save and discuss visuals in [FlowThis Cloud](https://flowthis.app) |
+| License | MIT |
 
 ## Use With FlowThis Cloud
 
@@ -123,6 +152,7 @@ Every generated visual should be:
     plugin.json
   assets/
     flowthis-visual-skill-demo.gif
+    flowthis-visual-skill-mark.svg
   skills/
     flowthis/
       SKILL.md

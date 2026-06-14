@@ -1,0 +1,13 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">FlowThis Visual Skill</title>
+  <desc id="desc">Connected visual document nodes inside a rounded square mark.</desc>
+  <rect x="12" y="12" width="136" height="136" rx="32" fill="#111827"/>
+  <rect x="24" y="24" width="112" height="112" rx="24" fill="#F8FAFC"/>
+  <path d="M52 62C70 45 91 45 108 62" stroke="#2563EB" stroke-width="8" stroke-linecap="round"/>
+  <path d="M52 98C70 115 91 115 108 98" stroke="#16A34A" stroke-width="8" stroke-linecap="round"/>
+  <path d="M50 80H110" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
+  <rect x="36" y="50" width="32" height="24" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="4"/>
+  <rect x="92" y="50" width="32" height="24" rx="8" fill="#E0F2FE" stroke="#0284C7" stroke-width="4"/>
+  <rect x="36" y="86" width="32" height="24" rx="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="4"/>
+  <rect x="92" y="86" width="32" height="24" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="4"/>
+</svg>
