@@ -1,59 +1,54 @@
 # FlowThis Visual Skill
 
-**An open Agent Skill for turning papers, repositories, architecture notes,
-conversations, workflows, and reports into polished, source-aware HTML visuals.**
+An open Agent Skill for turning papers, repositories, architecture notes,
+conversations, workflows, and reports into polished, source-aware HTML visuals.
 
 FlowThis Visual Skill gives coding agents a visual operating system: classify
 the source, choose the right structure, build a readable mini-site, keep
 diagrams precise, label evidence, and ship one self-contained HTML file with no
-JavaScript or external assets.
+JavaScript or remote assets.
+
+![FlowThis Visual Skill demo](assets/flowthis-visual-skill-demo.gif)
+
+## Why It Exists
+
+Agents are good at generating HTML, but without a strong visual standard they
+often produce generic cards, weak diagrams, overlapping arrows, vague summaries,
+and layouts that do not match the source. This skill gives the agent a clear
+default grammar for turning real context into reviewable visual documents.
+
+Use it when you want an agent to produce a shareable visual that feels designed,
+evidence-aware, and useful on the first pass.
 
 ## What Makes It Different
 
 - **Visual brief first:** source type, audience, confidence, reader job, and
   what to inspect first.
-- **Source-first identity:** a repository can feel like an IDE, docs workspace,
-  directory mock, or wide system canvas; a paper can feel like an annotated
-  brief; a product page can feel editorial.
-- **Deep architecture by default:** repo visuals should explain modules,
-  contracts, runtime paths, tests, risks, and exact files to inspect.
+- **Source-first identity:** a repo can become an IDE-style explorer, docs
+  workspace, directory mock, or wide architecture canvas; a paper can become an
+  annotated brief; a product page can become an editorial share page.
+- **Deep architecture by default:** repo visuals explain modules, contracts,
+  runtime paths, tests, risks, and exact files to inspect.
 - **Interactive without JavaScript:** anchors, `:target`, `details`, and CSS
   states create navigable documents that still work in strict sandboxes.
-- **Crafted architecture diagrams:** arrows stop at node edges, animated SVG
-  flows clarify direction, icons identify component types, and large maps use
-  the full available width.
+- **Crafted diagrams:** boundary-safe arrows, animated SVG flow paths, semantic
+  icons, grouped system boundaries, and large maps that use the available width.
 - **Evidence-aware summaries:** source-backed facts and inferred summaries are
-  visually separated.
+  visually separated so readers know what is known and what is interpretation.
 
-## Example Gallery
+## Examples
 
-### TokenGate Repository Architecture
+| Example | What It Shows |
+| --- | --- |
+| [`TokenGate repository architecture`](examples/tokengate-repo-architecture.html) | A deep repo visual generated from [`Mario-Vishal/tokengate`](https://github.com/Mario-Vishal/tokengate), with animated architecture, semantic icons, directory previews, runtime notes, tests, and review targets. |
+| [`Qwen3 technical report brief`](examples/qwen3-paper-brief.html) | A research-paper route generated from the open [`Qwen3 Technical Report`](https://arxiv.org/abs/2505.09388), with contribution cards, method map, evidence matrix, limitations, and read-next notes. |
 
-Generated from the public
-[`Mario-Vishal/tokengate`](https://github.com/Mario-Vishal/tokengate) repository
-using the FlowThis skill. The current example uses a wide animated architecture
-canvas, semantic inline SVG icons, a directory mock with file previews, and
-detailed module notes for core contracts, ranking, selection, runtime, audit,
-tests, and review targets.
+The examples are self-contained HTML files. No secrets, env values, raw private
+source, scripts, remote fonts, or external assets are embedded.
 
-No secrets, env values, or raw private source are embedded.
+## Install
 
-Open the example:
-[`examples/tokengate-repo-architecture.html`](examples/tokengate-repo-architecture.html)
-
-### Qwen3 Technical Report Brief
-
-Generated from the open arXiv paper
-[`Qwen3 Technical Report`](https://arxiv.org/abs/2505.09388). The visual follows
-the paper route: identity, abstract rewrite, contribution cards, method map,
-evidence matrix, limitations, and read-next notes.
-
-Open the example:
-[`examples/qwen3-paper-brief.html`](examples/qwen3-paper-brief.html)
-
-## Install In Claude Code
-
-Copy the skill into your personal Claude Code skills directory:
+### Claude Code
 
 ```bash
 mkdir -p ~/.claude/skills/flowthis
@@ -72,9 +67,7 @@ or:
 Turn this research paper into a FlowThis visual.
 ```
 
-## Install In Codex
-
-Codex can use the skill directly from an Agent Skills folder:
+### Codex
 
 ```bash
 mkdir -p ~/.agents/skills/flowthis
@@ -83,38 +76,39 @@ cp -R skills/flowthis/* ~/.agents/skills/flowthis/
 
 This repository also includes a Codex plugin manifest at
 [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json), so it can be packaged
-as a Codex plugin when you want installable distribution.
+as an installable Codex plugin.
 
 ## Use With FlowThis Cloud
 
-This open repo is the visual-generation standard. FlowThis Cloud is the hosted
-workspace for saving, sharing, discussing, and revising the generated visuals.
+This repository is the public visual-generation standard. FlowThis Cloud is the
+hosted workspace for saving, sharing, commenting on, and revising generated
+visuals.
 
-When FlowThis MCP tools are connected, the skill can save directly through
+When FlowThis MCP tools are connected, agents can save directly through
 `create_visualization`. Without MCP, agents can still write a local
 `flowthis-visual.html` file that can be uploaded manually.
 
-## Output Rules
+## Output Contract
 
-Every output should be:
+Every generated visual should be:
 
 - one complete `<!doctype html>` document
 - inline CSS and inline SVG only
 - no JavaScript
 - no remote fonts, styles, scripts, images, or iframes
 - responsive at mobile and desktop widths
-- source-specific in visual identity
+- source-specific in palette, density, structure, and tone
 - explicit about provenance and uncertainty
 - lightly attributed at the bottom with `Generated with FlowThis Skill` and a
   source link
 - structured with stable section ids where comments should attach
 
-## Source Types
+## Source Routes
 
 | Source | Default Visual Pattern |
 | --- | --- |
 | Research paper / PDF | Paper brief with contributions, method map, experiments, limits, read-next |
-| Repository / codebase | Deep architecture workspace, top summary, detailed repo/file drill-down, large animated maps, flows, contracts, runtime, tests, risks |
+| Repository / codebase | Deep architecture workspace, top summary, detailed file drill-down, large animated maps, flows, contracts, runtime, tests, risks |
 | Software architecture | System boundaries, services, stores, request paths, failure points |
 | Conversation / debug log | Timeline, decisions, blockers, current state, next actions |
 | Product / advertisement | Offer page, audience, pain, benefits, proof, CTA |
@@ -127,6 +121,8 @@ Every output should be:
 .
   .codex-plugin/
     plugin.json
+  assets/
+    flowthis-visual-skill-demo.gif
   skills/
     flowthis/
       SKILL.md

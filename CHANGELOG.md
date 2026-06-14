@@ -37,3 +37,7 @@
   example: full-width animated SVG system canvas, semantic icons, directory mock
   with previews, deeper module notes, runtime/audit/test detail, and lightweight
   FlowThis/source attribution.
+- Added `assets/flowthis-visual-skill-demo.gif` as the README demo recording.
+- Polished the README into a public repository landing page with clearer
+  positioning, install instructions, example links, output contract, source
+  routes, and repository layout.
